@@ -1,0 +1,24 @@
+img {
+	height: 300px;
+}
+
+body {
+	background-color: #00616C;
+}
+
+.container {
+	width: 100%;
+	height: 450px;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.place {
+	border: 1px solid red;
+}
+
+.card {
+	transition: all .5s linear;
+}

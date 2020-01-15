@@ -5,21 +5,34 @@
 <head>
 	<meta charset="utf-8" />
 	<title>OCL Graphics</title>
-	<style>
-		img {max-height: 300px;}
-	</style>
-		
+	<link rel="stylesheet" type="text/css" href="style.css">	
 </head>
 
 <body onload="Setup()">
 
-<img class="card" id="first" src="https://www.american.edu/ocl/images/market-graphic.jpg" alt="The Market infographic">
+	<div class="container">
 
-<img class="card" src="https://www.american.edu/ocl/images/titleix-graphic.jpg" alt="Title IX infographic">
+		<div class="place">
+			<img class="card" id="first" src="https://www.american.edu/ocl/images/market-graphic.jpg" alt="The Market infographic">
+		</div>
 
-<img class="card" src="https://www.american.edu/ocl/images/health-center-text-2.png" alt="Health Center text conversation">
+		<div class="place">
+			<img class="card" src="https://www.american.edu/ocl/images/titleix-graphic.jpg" alt="Title IX infographic">
+		</div>
 
-<img class="card" src="https://www.american.edu/ocl/images/DOS-graphic.jpg" alt="Dean of Students Office infographic">
+		<div class="place">
+			<img class="card" src="https://www.american.edu/ocl/images/health-center-text-2.png" alt="Health Center text conversation">
+		</div>
+
+		<div class="place">
+			<img class="card" src="https://www.american.edu/ocl/images/DOS-graphic.jpg" alt="Dean of Students Office infographic">
+		</div>
+
+		<div class="place">
+			<img class="card" src="https://www.american.edu/ocl/images/health-center-text-1.png" alt="Health Center text conversation">
+		</div>
+
+	</div>	
 
 <p><button onclick="Hello()">Test</button></p>
 
@@ -36,11 +49,16 @@
 	}
 
 	function Highlight() {
+		console.log(position);
 		for (var i = 0; i < cards.length; i++) {
 			cards[i].style.opacity = "0.2";
+			cards[i].style.height = "300px";
+			cards[i].style.width = "auto";
 		}
-		if (position<4) {
+		if (position<=(cards.length-1)) {
 			cards[position].style.opacity = 1;
+			cards[position].style.height = "450px";
+			cards[position].style.width = "auto";
 			position++;
 		} else {
 			position=0;
@@ -55,6 +73,7 @@
 		for (var i = 0; i < cards.length; i++) {
 			cards[i].style.opacity = "0.2";
 		}
+		console.log("cards length "+cards.length);
 	}
 
 
