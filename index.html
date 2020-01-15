@@ -40,16 +40,14 @@
 
 	var position;
 	var cards;
+	var rotateTimer; //timer for rotating opacity and size
+	var holdTimer; //timer to hold specific card on touch
 
 	function Hello() {
-	//	console.log ("Hello world");
-	//	var obj = document.getElementById("first");
-	//	obj.style.opacity = "0.2";
-		setInterval(Highlight, 2000);
+		rotateTimer=setInterval(Highlight, 2000);
 	}
 
 	function Highlight() {
-		console.log(position);
 		for (var i = 0; i < cards.length; i++) {
 			cards[i].style.opacity = "0.2";
 			cards[i].style.height = "300px";
@@ -72,10 +70,23 @@
 		cards = document.getElementsByClassName("card");
 		for (var i = 0; i < cards.length; i++) {
 			cards[i].style.opacity = "0.2";
+			cards[i].addEventListener("click", Hold);
 		}
-		console.log("cards length "+cards.length);
 	}
 
+	function Hold() {
+		console.log("butt ");
+		clearInterval(rotateTimer);
+		holdTimer=setInterval(HoldClock, 5000);
+	}
+
+	function HoldClock() {
+		console.log("hold test ");
+		Hello();
+		clearInterval(holdTimer);
+	}
+
+	
 
 
 </script>
@@ -83,3 +94,5 @@
 </body>
 
 </html>
+
+
