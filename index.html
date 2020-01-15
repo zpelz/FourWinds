@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>OCL Graphics</title>
+	<style>
+		img {max-height: 300px;}
+	</style>
+		
+</head>
+
+<body onload="Setup()">
+
+<img class="card" id="first" src="https://www.american.edu/ocl/images/market-graphic.jpg" alt="The Market infographic">
+
+<img class="card" src="https://www.american.edu/ocl/images/titleix-graphic.jpg" alt="Title IX infographic">
+
+<img class="card" src="https://www.american.edu/ocl/images/health-center-text-2.png" alt="Health Center text conversation">
+
+<img class="card" src="https://www.american.edu/ocl/images/DOS-graphic.jpg" alt="Dean of Students Office infographic">
+
+<p><button onclick="Hello()">Test</button></p>
+
+<script>
+
+	var position;
+	var cards;
+
+	function Hello() {
+	//	console.log ("Hello world");
+	//	var obj = document.getElementById("first");
+	//	obj.style.opacity = "0.2";
+		setInterval(Highlight, 2000);
+	}
+
+	function Highlight() {
+		for (var i = 0; i < cards.length; i++) {
+			cards[i].style.opacity = "0.2";
+		}
+		if (position<4) {
+			cards[position].style.opacity = 1;
+			position++;
+		} else {
+			position=0;
+			cards[position].style.opacity = 1
+		}
+
+	}
+
+	function Setup() {
+		position=0;
+		cards = document.getElementsByClassName("card");
+		for (var i = 0; i < cards.length; i++) {
+			cards[i].style.opacity = "0.2";
+		}
+	}
+
+
+
+</script>
+
+</body>
+
+</html>
