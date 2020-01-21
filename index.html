@@ -34,8 +34,6 @@
 
 	</div>	
 
-<p><button onclick="Hello()">Test</button></p>
-
 <script>
 
 	var position;
@@ -43,11 +41,13 @@
 	var rotateTimer; //timer for rotating opacity and size
 	var holdTimer; //timer to hold specific card on touch
 
-	function Hello() {
+
+	function CardSlider(){
 		rotateTimer=setInterval(Highlight, 2000);
 	}
 
 	function Highlight() {
+		//set all the size and opacity of cards to 0
 		for (var i = 0; i < cards.length; i++) {
 			cards[i].style.opacity = "0.2";
 			cards[i].style.height = "300px";
@@ -75,18 +75,19 @@
 	}
 
 	function Hold() {
-		console.log("butt ");
 		clearInterval(rotateTimer);
 		holdTimer=setInterval(HoldClock, 5000);
 	}
 
-	function HoldClock() {
-		console.log("hold test ");
-		Hello();
+	function HoldClock() { 
+		CardSlider(); //start moving through the cards again
 		clearInterval(holdTimer);
 	}
 
-	
+	window.onload = function(){
+		Setup();
+		CardSlider();
+	}
 
 
 </script>
