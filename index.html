@@ -5,22 +5,23 @@
 <head>
 	<meta charset="utf-8" />
 	<title>OCL Graphics</title>
-	<link rel="stylesheet" type="text/css" href="style.css">	
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://code.jquery.com/jquery-git.js"></script>	
 </head>
 
-<body onload="Setup()">
+<body>
 
 	<div class="container">
 
-		<div class="place">
-			<img class="card" id="first" src="https://www.american.edu/ocl/images/market-graphic.jpg" alt="The Market infographic">
+		<div class="place" id="first">
+			<img class="card" onclick="Focus(this)" src="https://www.american.edu/ocl/images/market-graphic.jpg" alt="The Market infographic">
 		</div>
 
 		<div class="place">
 			<img class="card" src="https://www.american.edu/ocl/images/titleix-graphic.jpg" alt="Title IX infographic">
 		</div>
 
-		<div class="place">
+		<div class="place" id="focus">
 			<img class="card" src="https://www.american.edu/ocl/images/health-center-text-2.png" alt="Health Center text conversation">
 		</div>
 
@@ -34,16 +35,15 @@
 
 	</div>	
 
-<p><button onclick="Hello()">Test</button></p>
-
 <script>
 
 	var position;
 	var cards;
 	var rotateTimer; //timer for rotating opacity and size
 	var holdTimer; //timer to hold specific card on touch
+	var places;
 
-	function Hello() {
+	function Cycle() {
 		rotateTimer=setInterval(Highlight, 2000);
 	}
 
@@ -68,25 +68,43 @@
 	function Setup() {
 		position=0;
 		cards = document.getElementsByClassName("card");
+		places = document.getElementsByClassName("place");
 		for (var i = 0; i < cards.length; i++) {
 			cards[i].style.opacity = "0.2";
 			cards[i].addEventListener("click", Hold);
 		}
 	}
 
-	function Hold() {
-		console.log("butt ");
+	function Hold(x) {
 		clearInterval(rotateTimer);
 		holdTimer=setInterval(HoldClock, 5000);
 	}
 
 	function HoldClock() {
-		console.log("hold test ");
-		Hello();
+		Cycle();
 		clearInterval(holdTimer);
 	}
 
-	
+	window.onload = function(){
+		Setup();
+		Cycle();
+	}
+
+	function Focus(x) {
+		$(x).appendTo("#focus");
+		CheckDiv();	
+	}
+
+	function CheckDiv() {
+		for (var i = 0; i < 5; i++) {
+			console.log(places[i].children.length);
+			if(places[i].children.length == 0) {
+				var x=$(places[i+1]).children().innerHTML;
+				console.log(x);
+				$(x).appendTo("#first");
+			}
+		}
+	}
 
 
 </script>
