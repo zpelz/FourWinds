@@ -30,7 +30,7 @@
 		</div>
 
 		<div class="place">
-			<img class="card" src="https://www.american.edu/ocl/images/health-center-text-1.png" alt="Health Center text conversation">
+			<img id="test" class="card" src="https://www.american.edu/ocl/images/health-center-text-1.png" alt="Health Center text conversation">
 		</div>
 
 	</div>	
@@ -98,10 +98,12 @@
 	function CheckDiv() {
 		for (var i = 0; i < 5; i++) {
 			console.log(places[i].children.length);
+			
 			if(places[i].children.length == 0) {
-				var x=$(places[i+1]).children().innerHTML;
+				
+				var x=places[i+1].children[0];
 				console.log(x);
-				$(x).appendTo("#first");
+				$(x).appendTo(places[i]);
 			}
 		}
 	}
