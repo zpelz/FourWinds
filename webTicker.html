@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Web Ticker</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="webticker.min.js"></script>
+</head>
+
+<body>
+
+
+	<div class="ticket-wrapper" style="height: 800px;">	
+
+		<ul id="images-webTicker">
+			<li>	<img class="card" onclick="Focus(this)" src="https://www.american.edu/ocl/images/market-graphic.jpg" alt="The Market infographic"></li>
+			<li><img class="card" src="https://www.american.edu/ocl/images/titleix-graphic.jpg" alt="Title IX infographic"></li>
+			<li><img class="card" src="https://www.american.edu/ocl/images/health-center-text-2.png" alt="Health Center text conversation"></li>
+			<li><img class="card" src="https://www.american.edu/ocl/images/DOS-graphic.jpg" alt="Dean of Students Office infographic"> </li>
+			<li><img id="test" class="card" src="https://www.american.edu/ocl/images/health-center-text-1.png" alt="Health Center text conversation"> </li>
+		</ul>
+
+	</div>	
+
+<script>
+	$('#images-webTicker').webTicker({
+		height:'600px',
+		speed:150,
+		startEmpty:false,
+		hoverpause:false
+	});
+
+</script>
+
+</body>
+
+</html>
+
+
