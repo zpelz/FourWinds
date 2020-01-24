@@ -26,11 +26,28 @@
 	</div>	
 
 <script>
+
+	var stopped; 
+	
+	window.onload = function(){
+		stopped = false;
+	}
+	
 	$('#images-webTicker').webTicker({
 		height:'600px',
 		speed:150,
 		startEmpty:false,
 		hoverpause:false
+	});
+
+	$('#images-webTicker').click(function(){
+		if(!stopped){
+			$('#images-webTicker').webTicker('stop');
+			stopped = true;
+		}else{
+			$('#images-webTicker').webTicker('cont');
+			stopped = false;
+		}
 	});
 
 </script>
