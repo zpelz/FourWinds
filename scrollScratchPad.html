@@ -8,22 +8,32 @@
 		<link rel="stylesheet" type="text/css" href="scratch.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 		<script src="webticker.min.js"></script>
+		<script src="https://code.jquery.com/jquery-git.js"></script>
 	</head>
 
 	<body>
 		<div class="grid-container">
 			<main class="grid-item main">
 				<div class="items">
-				  <div class="item item1"></div>
-				  <div class="item item2"></div>
-				  <div class="item item3"></div>
-				  <div class="item item4"></div>
-				  <div class="item item5"></div>
-				  <div class="item item6"></div>
-				  <div class="item item7"></div>
-				  <div class="item item8"></div>
-				  <div class="item item9"></div>
-				  <div class="item item10"></div>
+				  <div class="item item1">
+				  	<img class="card" src="https://www.american.edu/ocl/images/market-graphic.jpg" alt="The Market infographic">
+				  </div>
+				  
+				  <div class="item item2">
+				  	<img class="card" src="https://www.american.edu/ocl/images/titleix-graphic.jpg" alt="Title IX infographic">
+				  </div>
+				  
+				  <div class="item item3">
+				  	<img class="card" src="https://www.american.edu/ocl/images/health-center-text-2.png" alt="Health Center text conversation">
+				  </div>
+				  
+				  <div class="item item4">
+				  	<img class="card" src="https://www.american.edu/ocl/images/DOS-graphic.jpg" alt="Dean of Students Office infographic">
+				  </div>
+				  
+				  <div class="item item5">
+				  	<img id="test" class="card" src="https://www.american.edu/ocl/images/health-center-text-1.png" alt="Health Center text conversation">
+				  </div>
 			</div>
 		</div>
 	</body>
@@ -58,6 +68,65 @@
 		  slider.scrollLeft = scrollLeft - walk;
 		  console.log(walk);
 		});
+
+	var position;
+	var cards;
+	var rotateTimer; 
+	var holdTimer; 
+	var places;
+
+	function Cycle() {
+		rotateTimer=setInterval(Highlight, 2000);
+	}
+
+	function Highlight() {
+		for (var i = 0; i < cards.length; i++) {
+			cards[i].style.opacity = "0.2";
+			cards[i].style.height = "500px";
+			cards[i].style.width = "auto";
+		}
+		if (position<=(cards.length-1)) {
+			cards[position].style.height = "650px";
+			cards[position].style.width = "auto";
+			cards[position].style.opacity = 1;
+			position++;
+		} else {
+			position=0;
+			cards[position].style.opacity = "0.2"
+			cards[position].style.height = "500px";
+			cards[position].style.width = "auto";
+		}
+
+	}
+
+	function Setup() {
+		position=0;
+		cards = document.getElementsByClassName("card");
+		places = document.getElementsByClassName("place");
+		for (var i = 0; i < cards.length; i++) {
+			cards[i].style.opacity = "0.2";
+			cards[i].addEventListener("click", Hold);
+		}
+	}
+
+	function Hold(x) {
+		clearInterval(rotateTimer);
+		holdTimer=setInterval(HoldClock, 5000);
+	}
+
+	function HoldClock() {
+		Cycle();
+		clearInterval(holdTimer);
+	}
+
+	window.onload = function(){
+		Setup();
+		Cycle();
+	}
+
+
 		
 	</script>
 </html>
+
+

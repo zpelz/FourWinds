@@ -10,11 +10,11 @@ body,
 html {
   color: #fff;
   text-align: center;
-  background: #fff;
   font-family: Helvetica, sans-serif;
   margin: 0;
 }
 
+/*
 .grid-container {
   background: #fff;
   font-family: 'Rubik', sans-serif;
@@ -40,26 +40,27 @@ html {
     color: $gray;
     background-color: lighten(skyblue, 25%);
     grid-area: title;
-  }
+  } 
 
-  .main {
- 
-    background-color: white;
-    grid-area: main;
-    padding: 0;
-    overflow-x: scroll;
-    overflow-y: hidden;
-  }
-  
   .footer {
     background-color: darken(skyblue, 10%);
     grid-area: footer;
     padding: 0.6em;
   }
 
+
+*/
+
+  .main {
+    grid-area: main;
+    padding: 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  
+
   .items {
     position: relative;
-    width: 100%;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
@@ -71,7 +72,6 @@ html {
   }
 
   .items.active {
-    background: rgba(255,255,255,0.3);
     cursor: grabbing;
     cursor: -webkit-grabbing;
     transform: scale(1);
@@ -79,33 +79,16 @@ html {
 
   .item {
     display: inline-block;
-    background: skyblue;
     min-height: 250px;
     min-width: 400px;
-    margin: 2em 1em;
-    @media screen and (max-width: 500px) {
-      min-height: 200px;
-      min-width: 200px;
+    margin: 2em 0.5em;
     }
 
-
-
-a {
-  display: block;
-  color: lighten(skyblue, 15%);
-  text-decoration: underline;
-  margin: 1em auto;
-  &:hover {
-    cursor: pointer;
-  }
+img {
+  height: 500px;
+  width: auto;
 }
 
-p {
-  text-align: left;
-  text-indent: 20px;
-  font-weight: 100;
-}
-
-i {
-  color: skyblue;
+body {
+  background-color: #00616C;
 }
