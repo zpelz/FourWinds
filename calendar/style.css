@@ -1,0 +1,77 @@
+body {
+	background-color: #E7EFF0;
+	font-family: "Adobe Garamond Pro", serif;
+}
+
+img {
+	height: 70px;
+	text-align: top;
+}
+
+p {
+	margin: 25px 10px 0px 0px;
+	padding-left: 20px;
+}
+
+b {
+	padding-left: 10px;
+}
+
+em {
+	padding-left: 10px;
+}
+
+.container {
+	
+ }	
+
+
+.item {
+	background-color: #DCDDDE;
+	display: flex;
+	height: 70px;
+	width: 1000px;
+	margin: 20px 200px;
+}
+
+.eventTitle {
+	font-size: 25px;
+}
+
+.date {
+	font-size: 22px;
+	font-style: normal;
+}
+
+.time {
+	font-size: 22px;
+}
+
+.location {
+	font-size: 22px;
+}
+
+.description {
+	font-size: 18px;
+	width: 950px;
+	padding-right: 20px;
+	/* display: none; */
+}
+
+.buttons {
+	margin: 10px 500px;
+	display: flex;
+}
+
+.arrow {
+	height: 30px;
+	width: auto;
+	padding: 15px;
+}
+
+
+
+
+
+
+

@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>Events Calendar</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<!-- <link rel="stylesheet" href="https://use.typekit.net/lzc6nmg.css">	-->
+	<script src="https://code.jquery.com/jquery-git.js"></script>	
+</head>
+
+<body>
+
+	<div class="container">
+
+		<div class="item place card">
+			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
+			<p>
+				<b class="eventTitle">Sample Event Title</b>
+				<em class="date">1/28</em> 
+				<em class="time">Time</em> 
+				<b class="location">Location</b>
+			</p>
+			<p class="description">This presentation introduces some of the issues facing native youth today, discusses the work’s organization, and explains why they are passionate about these issues. Here's another sentence...</p>
+		</div>
+
+		<div class="item place card">
+			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
+			<p>
+				<b class="eventTitle">Sample Event Title</b>
+				<em class="date">1/28</em> 
+				<em class="time">Time</em> 
+				<b class="location">Location</b>
+			</p>
+			<p class="description">This presentation introduces some of the issues facing native youth today, discusses the work’s organization, and explains why they are passionate about these issues.</p>
+		</div>
+
+		<div class="item place card">
+			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
+			<p>
+				<b class="eventTitle">Sample Event Title</b>
+				<em class="date">1/28</em> 
+				<em class="time">Time</em> 
+				<b class="location">Location</b>
+			</p>
+			<p class="description">This presentation introduces some of the issues facing native youth today, discusses the work’s organization, and explains why they are passionate about these issues.</p>
+		</div>
+ 
+		<div class="item place card" id="highlight">
+			<img id="highlight" src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
+			<p>
+				<b class="eventTitle">Sample Event Title</b>
+				<em class="date">1/28</em> 
+				<em class="time">Time</em> 
+				<b class="location">Location</b>
+			</p>
+			<p class="description">This presentation introduces some of the issues facing native youth today, discusses the work’s organization, and explains why they are passionate about these issues.</p>
+		</div>
+
+		<div class="item place card">
+			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
+			<p>
+				<b class="eventTitle">Sample Event Title</b>
+				<em class="date">1/28</em> 
+				<em class="time">Time</em> 
+				<b class="location">Location</b>
+			</p>
+			<p class="description">This presentation introduces some of the issues facing native youth today, discusses the work’s organization, and explains why they are passionate about these issues.</p>
+		</div>
+
+		<div class="item place card">
+			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
+			<p>
+				<b class="eventTitle">Sample Event Title</b>
+				<em class="date">1/28</em> 
+				<em class="time">Time</em> 
+				<b class="location">Location</b>
+			</p>
+			<p class="description">This presentation introduces some of the issues facing native youth today, discusses the work’s organization, and explains why they are passionate about these issues.</p>
+		</div>
+
+		<div class="item place card">
+			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
+			<p>
+				<b class="eventTitle">Sample Event Title</b>
+				<em class="date">1/28</em> 
+				<em class="time">Time</em> 
+				<b class="location">Location</b>
+			</p>
+			<p class="description">This presentation introduces some of the issues facing native youth today, discusses the work’s organization, and explains why they are passionate about these issues.</p>
+		</div>
+
+		<div class="buttons">
+			<img class="arrow" id="down" src="img/down.png" alt="down arrow">
+			<img class="arrow" id="up" src="img/up.png" alt="up arrow">
+		</div>
+
+	</div>
+
+<script>
+
+	var position;
+	var cards;
+	var rotateTimer; //timer for rotating size
+	var holdTimer; //timer to hold specific card on touch
+	var places;
+	var image;
+	var desc;
+
+	function Cycle() {
+		rotateTimer=setInterval(Highlight, 2000);
+	}
+
+	function Highlight() {
+		for (var i = 0; i < cards.length; i++) {
+			cards[i].style.background = "#DCDDDE";
+			cards[i].style.height = "70px";
+			cards[i].style.width = "1000px";
+			image[i].style.height = "70px";
+			desc[i].style.display = "none";
+			cards[i].style.margin = "20px 200px";
+		}
+		if (position<=(cards.length-1)) {
+			cards[position].style.background = "#ffffff";
+			cards[position].style.height = "100px";
+			cards[position].style.width = "1200px";
+			cards[position].style.margin = "0px 100px";
+			image[position].style.height = "100px";
+			image[position].style.width = "auto";
+			desc[position].style.display = "block";
+			position++;
+		} 
+		else {
+			position = 0;
+			cards[position].style.background = "#DCDDDE";
+		}
+	}
+
+	function Setup() {
+		position=0;
+		cards = document.getElementsByClassName("card");
+		places = document.getElementsByClassName("place");
+		image = document.getElementsByClassName("img");
+		desc = document.getElementsByClassName("description");
+		for (var i = 0; i < cards.length; i++) {
+			cards[i].addEventListener("click", Hold);
+		}
+	}
+
+	function Hold(x) {
+		clearInterval(rotateTimer);
+		holdTimer=setInterval(HoldClock, 6000);
+	}
+
+	function HoldClock() {
+		Cycle();
+		clearInterval(holdTimer);
+	}
+
+	window.onload = function(){
+		Setup();
+		Cycle();
+	}
+
+
+</script>	
+
+</body>
+
+</html>
