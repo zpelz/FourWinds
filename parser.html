@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>RSS Parser</title>
+	<link rel="stylesheet" type="text/css" href="ticker-style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="webticker.min.js"></script>
+</head>
+
+	<body>
+
+
+		<div id="foo">	
+
+			<ul >
+				<li >
+					<img id="img1" src="#" alt="dunno">
+					<h1>Header</h1>
+					<p>Content</p>
+					<p>Date</p>
+				</li>
+				<li>
+					<img src="#" alt="dunno">
+					<h1>Header</h1>
+					<p>Content</p>
+					<p>Date</p>
+				</li>
+				<li>
+					<img src="#" alt="dunno">
+					<h1>Header</h1>
+					<p>Content</p>
+					<p>Date</p>
+				</li>
+				<li>
+					<img src="#" alt="dunno">
+					<h1>Header</h1>
+					<p>Content</p>
+					<p>Date</p>
+				</li>
+				<li>
+					<img src="#" alt="dunno">
+					<h1>Header</h1>
+					<p>Content</p>
+					<p>Date</p>
+				</li>
+			</ul>
+
+		</div>	
+
+
+
+	</body>
+	
+	
+	<script>
+		
+		
+		//globals
+		var headers = new Array();
+		var descriptions = new Array();
+		var imgURLs = ['https://static.campuslabsengage.com/discovery/images/events/groupbusiness.jpg'];
+
+		$.fn.immediateText = function(){
+			return this.contents().not(this.children()).text();
+		}
+
+		function strip_html(str){
+			if((str ===null) || (str===''))
+				return false;
+			else 
+				str = str.toString();
+				
+			str.replace(/&nbsp;/gi,'');
+			return str.replace(/<[^>]*>/g, '');
+		}
+		
+		$(document).ready(function(){
+			var feed = "https://american.campuslabs.com/engage/events.rss"
+		
+			
+			$('#img1').attr('src', imgURLs[0]);
+			
+			$.ajax(feed,{
+				accepts:{
+					xml:"application/rss+xml"
+				},
+				dataType:"xml",
+				success:function(data){
+					$(data).find("item").each(function(){
+						var el = $(this);
+						var desc = el.find('description').text();
+						var url = el.find('enclosure').attr('url');
+						
+					
+					
+						console.log("------");
+						console.log("title  : " + el.find("title").text());					
+						
+						headers.push(el.find("title").text());
+						imgURLs.push(url);
+						descriptions.push(strip_html(desc).trim());
+						
+						//console.log("description : " + strip_html(desc).trim());
+						//console.log("description length : " + desc.length);
+						
+					});
+				}
+			});
+		});
+		
+		function getRandomInt(max){
+			return Math.floor(Math.random() * Math.floor(max));
+		}
+		
+		
+		function limitText(str){
+			if(str.length > 190){
+				var outText = str.substring(0,187) + "...";
+				alert(outText);
+			}
+		}
+		
+		
+		//Keypress test
+		$(document).keydown(function(e){
+			if(e.keyCode == 32){ //spacebar
+				//alert("Descriptions Lenght: " + descriptions.length + " \n" + getRandomInt(descriptions.length) + " \n"  + descriptions[getRandomInt(descriptions.length)]);				
+				limitText(descriptions[getRandomInt(descriptions.length)]);
+			}
+		});
+		
+
+		
+
+	</script>
+</html>
+
+
