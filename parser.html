@@ -16,33 +16,33 @@
 		<div id="foo">	
 
 			<ul >
-				<li >
+				<li>
 					<img id="img1" src="#" alt="dunno">
-					<h1>Header</h1>
+					<h1 class="eventH">Header</h1>
+					<p class="eventDescription">Content</p>
+					<p class="eventDate">Date</p>
+				</li>
+				<li class="event">
+					<img src="#" alt="dunno">
+					<h1 class="eventH">Header</h1>
 					<p>Content</p>
 					<p>Date</p>
 				</li>
-				<li>
+				<li class="event">
 					<img src="#" alt="dunno">
-					<h1>Header</h1>
+					<h1 class="eventH">Header</h1>
 					<p>Content</p>
 					<p>Date</p>
 				</li>
-				<li>
+				<li class="event">
 					<img src="#" alt="dunno">
-					<h1>Header</h1>
+					<h1 class="eventH">Header</h1>
 					<p>Content</p>
 					<p>Date</p>
 				</li>
-				<li>
+				<li class="event">
 					<img src="#" alt="dunno">
-					<h1>Header</h1>
-					<p>Content</p>
-					<p>Date</p>
-				</li>
-				<li>
-					<img src="#" alt="dunno">
-					<h1>Header</h1>
+					<h1 class="eventH">Header</h1>
 					<p>Content</p>
 					<p>Date</p>
 				</li>
@@ -61,8 +61,12 @@
 		//globals
 		var headers = new Array();
 		var descriptions = new Array();
-		var imgURLs = ['https://static.campuslabsengage.com/discovery/images/events/groupbusiness.jpg'];
-
+		var imgURLs = ['https://static.campuslabsengage.com/discovery/images/events/groupbusiness.jpg'];//this sets the default image at 0 position;
+		
+		var hDom = new Array();
+		var dDom = new Array();
+		var imgDom = new Array();
+		
 		$.fn.immediateText = function(){
 			return this.contents().not(this.children()).text();
 		}
@@ -80,8 +84,9 @@
 		$(document).ready(function(){
 			var feed = "https://american.campuslabs.com/engage/events.rss"
 		
-			
-			$('#img1').attr('src', imgURLs[0]);
+			console.log($('.eventH').text());
+		
+		
 			
 			$.ajax(feed,{
 				accepts:{
@@ -96,8 +101,8 @@
 						
 					
 					
-						console.log("------");
-						console.log("title  : " + el.find("title").text());					
+						//console.log("------");
+						//console.log("title  : " + el.find("title").text());					
 						
 						headers.push(el.find("title").text());
 						imgURLs.push(url);
@@ -109,17 +114,27 @@
 					});
 				}
 			});
+			
 		});
 		
 		function getRandomInt(max){
 			return Math.floor(Math.random() * Math.floor(max));
 		}
 		
+		function assignHeaders(val){ //val is the "page value" to determine what page of events we see
+			var i=val*7;
+			$('.eventH').each(function(){
+				i++;
+				$(this).text(headers[i]);
+				
+				
+			});
+		}
 		
 		function limitText(str){
 			if(str.length > 190){
 				var outText = str.substring(0,187) + "...";
-				alert(outText);
+				//alert(outText);
 			}
 		}
 		
@@ -127,6 +142,9 @@
 		//Keypress test
 		$(document).keydown(function(e){
 			if(e.keyCode == 32){ //spacebar
+				console.log("Header length " + headers.length);
+				assignHeaders(2);
+				
 				//alert("Descriptions Lenght: " + descriptions.length + " \n" + getRandomInt(descriptions.length) + " \n"  + descriptions[getRandomInt(descriptions.length)]);				
 				limitText(descriptions[getRandomInt(descriptions.length)]);
 			}
