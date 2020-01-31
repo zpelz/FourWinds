@@ -47,8 +47,8 @@
 			<p class="description">This presentation introduces some of the issues facing native youth today, discusses the work’s organization, and explains why they are passionate about these issues.</p>
 		</div>
  
-		<div class="item place card" id="highlight">
-			<img id="highlight" src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
+		<div class="item place card">
+			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
 			<p>
 				<b class="eventTitle">Sample Event Title</b>
 				<em class="date">1/28</em> 
@@ -92,8 +92,8 @@
 		</div>
 
 		<div class="buttons">
-			<img class="arrow" id="down" src="img/down.png" alt="down arrow">
-			<img class="arrow" id="up" src="img/up.png" alt="up arrow">
+			<button><img class="arrow" id="down" src="img/down.png" alt="down arrow"></button>
+			<button><img class="arrow" id="up" src="img/up.png" alt="up arrow"></button>
 		</div>
 
 	</div>
@@ -108,33 +108,31 @@
 	var image;
 	var desc;
 
-	function Cycle() {
-		rotateTimer=setInterval(Highlight, 2000);
-	}
-
 	function Highlight() {
 		for (var i = 0; i < cards.length; i++) {
-			cards[i].style.background = "#DCDDDE";
-			cards[i].style.height = "70px";
-			cards[i].style.width = "1000px";
-			image[i].style.height = "70px";
-			desc[i].style.display = "none";
-			cards[i].style.margin = "20px 200px";
+			if (i == position) {
+				$(cards[i]).addClass("highlighted");
+				$(cards[i]).removeClass("normal");
+			} else {
+				$(cards[i]).addClass("normal");
+				$(cards[i]).removeClass("highlighted");
+			}	
 		}
-		if (position<=(cards.length-1)) {
-			cards[position].style.background = "#ffffff";
-			cards[position].style.height = "100px";
-			cards[position].style.width = "1200px";
-			cards[position].style.margin = "0px 100px";
-			image[position].style.height = "100px";
-			image[position].style.width = "auto";
-			desc[position].style.display = "block";
-			position++;
-		} 
-		else {
-			position = 0;
-			cards[position].style.background = "#DCDDDE";
-		}
+	}
+
+	function incrementPosition(direction = "forward") {
+		var increment = 1
+		if (direction == "backward") { increment = -1}
+		position = (position + increment) % cards.length
+	}
+
+	function doCycle() {
+		Highlight()
+		incrementPosition()
+	}
+
+	function Cycle() {
+		rotateTimer=setInterval(doCycle, 2000);
 	}
 
 	function Setup() {
@@ -162,6 +160,10 @@
 		Setup();
 		Cycle();
 	}
+
+	 	
+
+
 
 
 </script>	

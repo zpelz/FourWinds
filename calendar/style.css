@@ -5,7 +5,6 @@ body {
 
 img {
 	height: 70px;
-	text-align: top;
 }
 
 p {
@@ -55,12 +54,16 @@ em {
 	font-size: 18px;
 	width: 950px;
 	padding-right: 20px;
-	/* display: none; */
 }
 
 .buttons {
 	margin: 10px 500px;
 	display: flex;
+}
+
+button {
+	border: none;
+	background-color: #E7EFF0;
 }
 
 .arrow {
@@ -70,7 +73,38 @@ em {
 }
 
 
+.highlighted {
+	background-color: #ffffff;
+	height: 100px;
+	width: 1200px;
+	margin: 0px 100px;
+}
 
+.highlighted img {
+	height: 100px;
+	width: auto;
+}
+
+.highlighted .description {
+	display: block;
+}
+
+
+.normal .card {
+	background-color: #DCDDDE;
+	height: 70px;
+	width: 1000px;
+	margin: 20px 200px;
+}
+
+.normal img {
+	height: 70px;
+	width: auto;
+}
+
+.normal .description {
+	display: none;
+}
 
 
 
