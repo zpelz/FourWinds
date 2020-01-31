@@ -5,46 +5,46 @@
 <head>
 	<meta charset="utf-8" />
 	<title>RSS Parser</title>
-	<link rel="stylesheet" type="text/css" href="ticker-style.css">
+	<link rel="stylesheet" type="text/css" href="parse-style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<script src="webticker.min.js"></script>
+
 </head>
 
 	<body>
 
-
-		<div id="foo">	
+		
+		<div>	
 
 			<ul >
 				<li>
-					<img id="img1" src="#" alt="dunno">
+					<img class="eventImg" src="#" alt="dunno">
 					<h1 class="eventH">Header</h1>
 					<p class="eventDescription">Content</p>
 					<p class="eventDate">Date</p>
 				</li>
 				<li class="event">
-					<img src="#" alt="dunno">
+					<img class="eventImg" src="#" alt="dunno">
 					<h1 class="eventH">Header</h1>
-					<p>Content</p>
-					<p>Date</p>
+					<p class="eventDescription">Content</p>
+					<p class="eventDate">Date</p>
 				</li>
 				<li class="event">
-					<img src="#" alt="dunno">
+					<img class="eventImg" src="#" alt="dunno">
 					<h1 class="eventH">Header</h1>
-					<p>Content</p>
-					<p>Date</p>
+					<p class="eventDescription">Content</p>
+					<p class="eventDate">Date</p>
 				</li>
 				<li class="event">
-					<img src="#" alt="dunno">
+					<img class="eventImg" src="#" alt="dunno">
 					<h1 class="eventH">Header</h1>
-					<p>Content</p>
-					<p>Date</p>
+					<p class="eventDescription">Content</p>
+					<p class="eventDate">Date</p>
 				</li>
 				<li class="event">
-					<img src="#" alt="dunno">
+					<img class="eventImg" src="#" alt="dunno">
 					<h1 class="eventH">Header</h1>
-					<p>Content</p>
-					<p>Date</p>
+					<p class="eventDescription">Content</p>
+					<p class="eventDate">Date</p>
 				</li>
 			</ul>
 
@@ -62,10 +62,35 @@
 		var headers = new Array();
 		var descriptions = new Array();
 		var imgURLs = ['https://static.campuslabsengage.com/discovery/images/events/groupbusiness.jpg'];//this sets the default image at 0 position;
+		var dates = new Array();
+		var times = new Array();
 		
+		
+		//Dom elements
 		var hDom = new Array();
 		var dDom = new Array();
 		var imgDom = new Array();
+		
+		//Month text to date object
+		var months = {
+			'Jan' : '01',
+			'Feb' : '02',
+			'Mar' : '03',
+			'Apr' : '04',
+			'May' : '05',
+			'Jun' : '06',
+			'Jul' : '07',
+			'Aug' : '08',
+			'Sep' : '09',
+			'Oct' : '10',
+			'Nov' : '11',
+			'Dec' : '12'
+		}
+		
+		var timeObj = {
+			'start': '',
+			'end': ''
+		}
 		
 		$.fn.immediateText = function(){
 			return this.contents().not(this.children()).text();
@@ -76,15 +101,19 @@
 				return false;
 			else 
 				str = str.toString();
-				
-			str.replace(/&nbsp;/gi,'');
-			return str.replace(/<[^>]*>/g, '');
+
+			str = str.replace(/(&ldquo;)*/g,'');
+			str = str.replace(/(&rdquo;)*/g,'');
+			str = str.replace(/(&nbsp;)*/g,'');
+			str = str.replace(/(&amp;)*/g,'');
+			str = str.replace(/<[^>]*>/g, '');
+			return limitText(str);
 		}
 		
 		$(document).ready(function(){
 			var feed = "https://american.campuslabs.com/engage/events.rss"
 		
-			console.log($('.eventH').text());
+			
 		
 		
 			
@@ -99,17 +128,21 @@
 						var desc = el.find('description').text();
 						var url = el.find('enclosure').attr('url');
 						
-					
-					
-						//console.log("------");
-						//console.log("title  : " + el.find("title").text());					
+						var dtStart = el.find('start').text();
+						var dtEnd = el.find('end').text();
+						var fullDate = dtStart.substring(17,25) + dtEnd.substring(17,25);
+						
+						//console.log("Start: " + dtStart.substring(17,25) + " - End: " + dtEnd.substring(17,25));
+						dates.push(dtStart.substring(0,11));
+						
+						timeObj['start'] = dtStart.substring(17,25);
+						timeObj['end'] = dtEnd.substring(17,25);
+						times.push(timeObj);
 						
 						headers.push(el.find("title").text());
 						imgURLs.push(url);
-						descriptions.push(strip_html(desc).trim());
-						
-						//console.log("description : " + strip_html(desc).trim());
-						//console.log("description length : " + desc.length);
+						descriptions.push(strip_html(desc).trim());					
+			
 						
 					});
 				}
@@ -117,24 +150,54 @@
 			
 		});
 		
+		function monthTranslator(val){
+			console.log("date : " + dates[val]);
+			var d = dates[val].substring(8,11);	
+			d = months[d] + "/" + dates[val].substring(5,7);
+			d = d.replace(/(0)/gi,'');
+			console.log("lookup date: " + d);
+			
+		}
+		
 		function getRandomInt(max){
 			return Math.floor(Math.random() * Math.floor(max));
 		}
 		
 		function assignHeaders(val){ //val is the "page value" to determine what page of events we see
-			var i=val*7;
+			var h=val*7; //header counter
+			var desc=val*7; //description counter
+			var date=val*7; //date counter
+			var imgVal = val*7;
+			
 			$('.eventH').each(function(){
-				i++;
-				$(this).text(headers[i]);
+				$(this).text(headers[h]);	
+				h++;
+			});
+			
+			$('.eventDescription').each(function(){				
+				$(this).text(descriptions[desc]);				
+				desc++;
+			});
+			
+			$('.eventDate').each(function(){
 				
-				
+			});
+			
+			$('.eventImg').each(function(){
+				$(this).attr('src',imgURLs[imgVal]);
+				imgVal++;
 			});
 		}
 		
-		function limitText(str){
+	
+	
+		
+		function limitText(str){ //run in the strip_html function
 			if(str.length > 190){
 				var outText = str.substring(0,187) + "...";
-				//alert(outText);
+				return outText;				
+			}else{
+				return str;
 			}
 		}
 		
@@ -143,10 +206,28 @@
 		$(document).keydown(function(e){
 			if(e.keyCode == 32){ //spacebar
 				console.log("Header length " + headers.length);
-				assignHeaders(2);
-				
+				//limitText(descriptions[getRandomInt(descriptions.length)]);
+				assignHeaders(1);
+				monthTranslator(1);
+			
 				//alert("Descriptions Lenght: " + descriptions.length + " \n" + getRandomInt(descriptions.length) + " \n"  + descriptions[getRandomInt(descriptions.length)]);				
-				limitText(descriptions[getRandomInt(descriptions.length)]);
+				
+			}
+			
+			if(e.keyCode == 69){
+				$('.eventDescription').each(function(){					
+					var str = $(this).html();
+					str = str.replace(/(nbsp;)*/g,'');
+					console.log(str);
+					
+					/*
+					var test = $(this).html().replace(/&nbsp;/g,"").trim();
+					
+					test = $(this).html().replace(/nbsp;/g,"");
+					test = $(this).html().replace(/&amp;/g,'');
+					console.log("nice " + test);
+					*/
+				});
 			}
 		});
 		

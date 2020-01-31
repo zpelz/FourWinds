@@ -1,0 +1,23 @@
+body {
+	background-color: #00616C;
+}
+
+.eventImg{
+	width: 125px;
+	height: 75px;
+}
+
+.container {
+	width: 100%;
+	
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+
+.card {
+	transition: all .5s linear;
+}
