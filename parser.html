@@ -61,9 +61,14 @@
 		//globals
 		var headers = new Array();
 		var descriptions = new Array();
-		var imgURLs = ['https://static.campuslabsengage.com/discovery/images/events/groupbusiness.jpg'];//this sets the default image at 0 position;
+		var imgURLs = new Array();
+		//['https://static.campuslabsengage.com/discovery/images/events/groupbusiness.jpg'];
+		//this sets the default image at 0 position;
 		var dates = new Array();
 		var times = new Array();
+		var starts = new Array();
+		var ends = new Array();
+		var locs = new Array();
 		
 		
 		//Dom elements
@@ -112,19 +117,18 @@
 		
 		$(document).ready(function(){
 			var feed = "https://american.campuslabs.com/engage/events.rss"
-		
-			
-		
-		
 			
 			$.ajax(feed,{
 				accepts:{
 					xml:"application/rss+xml"
 				},
+					
 				dataType:"xml",
 				success:function(data){
 					$(data).find("item").each(function(){
+					
 						var el = $(this);
+						
 						var desc = el.find('description').text();
 						var url = el.find('enclosure').attr('url');
 						
@@ -132,59 +136,116 @@
 						var dtEnd = el.find('end').text();
 						var fullDate = dtStart.substring(17,25) + dtEnd.substring(17,25);
 						
-						//console.log("Start: " + dtStart.substring(17,25) + " - End: " + dtEnd.substring(17,25));
+						//time shenanigans
+						var startTemp = el.find('start').text();						
+						starts.push(timeConverter(startTemp));
+						var endTemp = el.find('end').text();
+						ends.push(timeConverter(endTemp));
+						//end of time shenanigans
+
 						dates.push(dtStart.substring(0,11));
-						
-						timeObj['start'] = dtStart.substring(17,25);
-						timeObj['end'] = dtEnd.substring(17,25);
-						times.push(timeObj);
-						
+	
 						headers.push(el.find("title").text());
 						imgURLs.push(url);
-						descriptions.push(strip_html(desc).trim());					
-			
+						descriptions.push(strip_html(desc).trim());	
 						
+						var tempLoc = el.find('location').text();
+						locs.push(tempLoc);
+					
 					});
+					
 				}
 			});
 			
 		});
 		
-		function monthTranslator(val){
-			console.log("date : " + dates[val]);
-			var d = dates[val].substring(8,11);	
-			d = months[d] + "/" + dates[val].substring(5,7);
-			d = d.replace(/(0)/gi,'');
-			console.log("lookup date: " + d);
+		function timeConverter(val){
+			var dTemp = val;	
+			dTemp = new Date(dTemp);
+			dTemp = dTemp.toString();
+			dTemp = dTemp.substring(16,25);	
+			dTemp = dTemp.split(':');						
+	
+		
+			var hours = Number(dTemp[0]);
+			var minutes = Number(dTemp[1]);
+
+			var timeVal; 
+			
+			if(hours > 0 && hours <=12){
+				timeVal = '' + hours;
+			}else if(hours > 12){
+				timeVal = '' +(hours-12);
+			}else if(hours ==0){
+				timeVal = "12";
+			}
+			
+			timeVal += (minutes < 10) ? ":0" + minutes : ":" + minutes;
+			timeVal += (hours >=12) ? " P.M." : " A.M";
+			
+			return timeVal;
 			
 		}
+		
+		function monthTranslator(val){
+			if(val > dates.length -1){
+				return;
+			}
+			var d = dates[val].substring(8,11);	
+			d = months[d] + "/" + dates[val].substring(5,7);
+			d = d.replace(/(0)/gi,'');			
+		
+			return d;
+		}
+		
+		function timeTranslator(val){
+			
+		}
+		
 		
 		function getRandomInt(max){
 			return Math.floor(Math.random() * Math.floor(max));
 		}
 		
-		function assignHeaders(val){ //val is the "page value" to determine what page of events we see
+		function assignHeaders(val){ //val is the "page value" to determine what page of events we see			
 			var h=val*7; //header counter
 			var desc=val*7; //description counter
 			var date=val*7; //date counter
 			var imgVal = val*7;
 			
 			$('.eventH').each(function(){
+				if(h > headers.length-1){				
+					$(this).text('')
+				}
 				$(this).text(headers[h]);	
 				h++;
 			});
 			
-			$('.eventDescription').each(function(){				
+			$('.eventDescription').each(function(){		
+				if(desc > descriptions.length-1){
+					$(this).text('');
+				}
 				$(this).text(descriptions[desc]);				
 				desc++;
 			});
 			
 			$('.eventDate').each(function(){
+				if(date > dates.length-1){
+					$(this).text('');
+				}else{
+					$(this).text(monthTranslator(date) + ' | ' + starts[date] + '-' + ends[date] + "   " + locs[date]);			
+				}
 				
+				date++
 			});
 			
 			$('.eventImg').each(function(){
+				if(imgVal > imgURLs.length-1){
+					$(this).css('display', 'none');
+				}
+				
 				$(this).attr('src',imgURLs[imgVal]);
+				
 				imgVal++;
 			});
 		}
@@ -204,30 +265,19 @@
 		
 		//Keypress test
 		$(document).keydown(function(e){
-			if(e.keyCode == 32){ //spacebar
-				console.log("Header length " + headers.length);
+			if(e.keyCode == 32){ //spacebar				
 				//limitText(descriptions[getRandomInt(descriptions.length)]);
-				assignHeaders(1);
-				monthTranslator(1);
+				assignHeaders(0);
+				monthTranslator(0);
 			
 				//alert("Descriptions Lenght: " + descriptions.length + " \n" + getRandomInt(descriptions.length) + " \n"  + descriptions[getRandomInt(descriptions.length)]);				
 				
 			}
 			
 			if(e.keyCode == 69){
-				$('.eventDescription').each(function(){					
-					var str = $(this).html();
-					str = str.replace(/(nbsp;)*/g,'');
-					console.log(str);
-					
-					/*
-					var test = $(this).html().replace(/&nbsp;/g,"").trim();
-					
-					test = $(this).html().replace(/nbsp;/g,"");
-					test = $(this).html().replace(/&amp;/g,'');
-					console.log("nice " + test);
-					*/
-				});
+				for(i=0; i<times.length-1;i++){
+					console.log("time " + i + " " + times[i]['start']);
+				}
 			}
 		});
 		
