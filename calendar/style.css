@@ -4,7 +4,7 @@ body {
 }
 
 img {
-	height: 70px;
+	height: 100px;
 }
 
 p {
@@ -21,43 +21,43 @@ em {
 }
 
 .container {
-	
+	margin-left: 50px;
  }	
 
 
 .item {
 	background-color: #DCDDDE;
 	display: flex;
-	height: 70px;
-	width: 1000px;
+	height: 100px;
+	width: 1400px;
 	margin: 20px 200px;
 }
 
 .eventTitle {
-	font-size: 25px;
+	font-size: 38px;
 }
 
 .date {
-	font-size: 22px;
+	font-size: 32px;
 	font-style: normal;
 }
 
 .time {
-	font-size: 22px;
+	font-size: 32px;
 }
 
 .location {
-	font-size: 22px;
+	font-size: 32px;
 }
 
 .description {
-	font-size: 18px;
+	font-size: 28px;
 	width: 950px;
 	padding-right: 20px;
 }
 
 .buttons {
-	margin: 10px 500px;
+	margin: 5px 750px;
 	display: flex;
 }
 
@@ -75,13 +75,13 @@ button {
 
 .highlighted {
 	background-color: #ffffff;
-	height: 100px;
-	width: 1200px;
-	margin: 0px 100px;
+	height: 150px;
+	width: 1500px;
+	margin: 0px 150px;
 }
 
 .highlighted img {
-	height: 100px;
+	height: 150px;
 	width: auto;
 }
 
@@ -89,16 +89,20 @@ button {
 	display: block;
 }
 
+.highlighted .eventTitle {
+	font-size: 42px;
+}
+
 
 .normal .card {
 	background-color: #DCDDDE;
-	height: 70px;
-	width: 1000px;
+	height: 100px;
+	width: 1400px;
 	margin: 20px 200px;
 }
 
 .normal img {
-	height: 70px;
+	height: 100px;
 	width: auto;
 }
 
