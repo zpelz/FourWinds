@@ -77,6 +77,7 @@ $(document).ready(function(){
                     //console.log(headers);   
                 imgURLs.push(url);
                 descriptions.push(strip_html(desc).trim());
+                console.log('init desc ' + descriptions);
                 locs.push(tempLoc);
             });
         }
@@ -161,8 +162,10 @@ function assign(val){
     
     $('.description').each(function(){
         if(desc > desc.length-1){
+            console.log("i should be clearing description");
             $(this).text('');
         }
+        console.log('description length: ' + desc.length);
         $(this).text(descriptions[desc]);
         desc++;
     })
