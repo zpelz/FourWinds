@@ -8,7 +8,7 @@ var starts = new Array();
 var ends = new Array();
 var locs = new Array();
 
-
+var page;
 
 //Month text to date object
 var months = {
@@ -44,7 +44,7 @@ function strip_html(str){
 $(document).ready(function(){
    
     var feed = "https://american.campuslabs.com/engage/events.rss"
-			
+    page = 0;
     $.ajax(feed,{
         accepts:{
             xml:"application/rss+xml"
@@ -80,12 +80,22 @@ $(document).ready(function(){
                 locs.push(tempLoc);
             });
         }
+       
     });
     
     
+    setTimeout(function(){
+        assign(page);
+    }, 500);
     
     $('#up').click(function(e){
-        assign(0);
+        console.log("page " + page)
+        if(page*7 > headers.length-1){
+            return;
+        }else{
+            page++;
+            assign(page);
+        }
     });
 });
 
