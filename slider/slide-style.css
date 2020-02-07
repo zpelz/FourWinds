@@ -1,0 +1,40 @@
+body {
+	background-color: #00616C;
+	overflow-x: hidden;	
+}
+
+.card{
+	height: 500px;
+	width: auto;
+		
+}
+
+.ticker-box{
+	height: 150%;
+    white-space:nowrap;
+    display:inline-block;
+}
+
+.container {
+	width: 100%;	
+	overflow:hidden;
+	
+	/*
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	*/
+}
+
+.place{
+	display: flex;
+	align-items:center;
+	justify-content: center;
+}
+
+#slider{
+	border: 2px solid red;
+	white-space:nowrap;
+}
+
+

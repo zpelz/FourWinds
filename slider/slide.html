@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>OCL Graphics</title>
+	<link rel="stylesheet" type="text/css" href="slide-style.css">
+	<script src="https://code.jquery.com/jquery-git.js"></script>	
+</head>
+
+<body>
+
+	<div id="slider">
+		<div class="ticker-box">
+			<img class="card" id="cardo" src="https://www.american.edu/ocl/images/market-graphic.jpg" alt="The Market infographic">
+					
+			<img class="card" src="https://www.american.edu/ocl/images/titleix-graphic.jpg" alt="Title IX infographic">
+
+			<img class="card" src="https://www.american.edu/ocl/images/health-center-text-2.png" alt="Health Center text conversation">
+
+			<img class="card" src="https://www.american.edu/ocl/images/DOS-graphic.jpg" alt="Dean of Students Office infographic">
+
+			<img id="test" class="card" src="https://www.american.edu/ocl/images/health-center-text-1.png" alt="Health Center text conversation">
+		</div>
+	</div>	
+
+	<script>
+	
+	
+		var cards = document.getElementsByClassName('card');
+		
+		var timers = [];
+		
+		/*
+		window.onload = function(){
+			
+			for(i=0;i<cards.length;i++){
+				cards[i].style.right = -1200+'px';
+			}
+			
+			//setup();			
+			
+		}
+		*/
+		
+		
+		var width = $('.ticker-box').width(), containerWidth = $('#slider').width(), left = containerWidth;
+		
+
+		$(document).ready(function(e){
+			console.log("width " + width + " containerWidth " + containerWidth + " left " + left);
+			console.log('double negative ' + --left);
+			function tick(){
+				if(--left < -width){
+					console.log("inside the if");
+					left = containerWidth;
+				}			
+				$('.ticker-box').css('marginleft', left + 'px');
+				setTimeout(tick, 16);
+			}
+			tick();
+		});
+
+		
+		function setup(){
+
+			for(var i=0; i<cards.length;i++){
+				let temp = cards[i];
+				let tI = i;
+				timers.push(setInterval(function(){move(temp,tI);},20));				
+			}
+		}
+				
+		function move(c, offset){
+			
+			var pos = parseFloat(c.style.right);
+			var myOff = offset;
+		
+		
+			if(pos > 450+(offset*50)){
+				console.log(450+(offset*50));
+				clearInterval(timers[offset]);				
+			
+				reset(c, offset);						
+			}else{				
+				pos += 5;
+				c.style.right = pos + 'px';						
+			}
+		}
+		
+		function reset(c, val){
+			var resetPos = -1650;
+			
+			c.style.right =  resetPos+ 'px';
+			setTimeout(function(){
+				timers[val] = setInterval(function(){move(c, val);},20);
+			}, 2);
+		}
+	
+	
+	</script>
+
+</body>
+
+</html>
+
+
