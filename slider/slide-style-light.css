@@ -1,0 +1,20 @@
+body {
+	background-color: #00616C;
+	overflow-x: hidden;	
+}
+
+.card{
+	height: 500px;
+	width: auto;
+    padding: 20px;
+	
+}
+
+#slider{
+	border: 2px solid red;
+
+  
+}
+
+
+

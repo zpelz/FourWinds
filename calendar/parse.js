@@ -8,6 +8,8 @@ var starts = new Array();
 var ends = new Array();
 var locs = new Array();
 
+
+var defaultImage = 'https://static.campuslabsengage.com/discovery/images/events/groupbusiness.jpg';
 var page;
 
 //Month text to date object
@@ -74,10 +76,10 @@ $(document).ready(function(){
                 
                 dates.push(dtStart.substring(0,11));
                 headers.push(el.find('title').text());
-                    //console.log(headers);   
+                     
                 imgURLs.push(url);
                 descriptions.push(strip_html(desc).trim());
-                console.log('init desc ' + descriptions);
+               
                 locs.push(tempLoc);
             });
         }
@@ -87,16 +89,25 @@ $(document).ready(function(){
     
     setTimeout(function(){
         assign(page);
-    }, 500);
+    }, 1000);
     
     $('#up').click(function(e){
-        console.log("page " + page)
+        
         if(page*7 > headers.length-1){
-            return;
+            assign(page);   
         }else{
             page++;
             assign(page);
         }
+        console.log("page " + page + " header lenght " + headers.length);
+    });
+    
+    $('#down').click(function(e){
+        if(page > 0){
+            page--;
+            assign(page);
+        }
+       
     });
 });
 
@@ -126,8 +137,8 @@ function timeConverter(val){
 }
 
 function limitText(str){ //run in the strip_html function
-    if(str.length > 190){
-        var outText = str.substring(0,187) + "...";
+    if(str.length > 130){
+        var outText = str.substring(0,127) + "...";
         return outText;				
     }else{
         return str;
@@ -146,48 +157,96 @@ function monthTranslator(val){
 }
 
 
+$(document).keydown(function(e){
+    if(e.keyCode == 32){
+        console.log(locs);
+    }
+})
+
+
+
 function assign(val){
     var h=val*7;
     var desc=val*7;
     var date=val*7;
     var imgVal=val*7;
-    
+    var locVal = val*7;
+    var timeVal = val*7;
+    //console.log('h ' + h + ' desc ' + desc + ' date ' + date + ' imgVal ' + imgVal);
     $('.eventTitle').each(function(){
-        if(h > headers.length-1){
+        if(h > headers.length){
+            console.log("should hide the header");
             $(this).text('');
+        }else{
+           $(this).text(headers[h]); 
         }
-        $(this).text(headers[h]);
+        
         h++;
     })
     
     $('.description').each(function(){
-        if(desc > desc.length-1){
-            console.log("i should be clearing description");
+   
+        if(desc < descriptions.length-1){
+            $(this).text(descriptions[desc]);
+        }else{
+         
             $(this).text('');
         }
-        console.log('description length: ' + desc.length);
-        $(this).text(descriptions[desc]);
         desc++;
     })
     
+    
+    $('.location').each(function(){
+        console.log('locVal ' + locVal);
+        if(locVal < locs.length){
+            $(this).text(locs[locVal]);
+        }else{
+            $(this).text('');
+        }
+        locVal++;
+    })
+    
+    $('.time').each(function(){
+        if(timeVal < starts.length){
+            $(this).text(starts[timeVal] + '-' + ends[timeVal]);
+        }else{
+            $(this).text('');
+        }
+        timeVal++;
+    })
+    
     $('.date').each(function(){
-        if(date > dates.length-1){
+        
+    
+        if(date > dates.length){
+            console.log('end');
+        }else{
+            $(this).text(monthTranslator(date) + ' | ');
+           // $('.time').text(starts[date] + '-' + ends[date]);
+           // $('.location').text(locs[date]);
+        }
+        date++;
+        /*
+        if(date < dates.length){
+            $(this).text(monthTranslator(date) + ' | ');
+            $('.time').text(starts[date] + '-' + ends[date]);
+            let tempDate = locs[date];
+            console.log(locs[date]);
+            $('.location').text(tempDate);        
+        }else{
             $(this).text('');
             $('.time').text('');
+            $('.location').text('');
         }
-        $(this).text(monthTranslator(date) + ' | ');
-        
-        $('.time').text(starts[date] + '-' + ends[date]);
-        $('.location').text(locs[date]);
-        
-        date++;
+        date++; 
+        */
     })
     
 
     
     $('.img').each(function(){
-        if(imgVal > imgURLs.length-1){
-            $(this).css('display','none');
+        if(imgVal > imgURLs.length){
+            $(this).attr('src', defaultImage);
         }
         $(this).attr('src',imgURLs[imgVal]);
         imgVal++;
