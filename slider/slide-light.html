@@ -33,16 +33,38 @@
 	<script>
         
 		var paused;
+		var clickedImg;
+		var resumeTimer = setTimeout(function(){
+			$('#slider').marquee('resume');
+		}, 3000);
+		
+		function startTimer(){
+			console.log('timer should start');
+			resumeTimer = setTimeout(function(){
+					$('#slider').marquee('resume');
+					clickedImg.height(500);
+				}, 3000);
+		}
 		
         $(window).load(function(){			
-		
+			
             $('#slider').marquee({
 				duration: 10000,
 				duplicated:true
            }); 
 		   
-		   $('img').click(function(){			
-				$('#slider').marquee('toggle');		
+		   $('img').click(function(e){			
+				clickedImg = $(this);
+				$('#slider').marquee('toggle');	
+				console.log('clicked img var ' + clickedImg);
+				if($(this).height() < 650){
+					$(this).height(650);
+					startTimer();
+				}else{
+					$(this).height(500);
+					clearTimeout(resumeTimer);
+				}
+				
 			});
 		   
         });

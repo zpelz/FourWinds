@@ -7,12 +7,14 @@ body {
 	height: 500px;
 	width: auto;
     padding: 20px;
+	transition: all .5s linear;
 	
 }
 
 #slider{
 	margin-top: 50px;
-  
+	
+	height: 800px;
 }
 
 
