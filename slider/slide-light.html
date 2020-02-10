@@ -34,28 +34,15 @@
         
 		var paused;
 		
-        $(window).load(function(){
-			paused = false;
-			console.log(paused);
+        $(window).load(function(){			
 		
             $('#slider').marquee({
-				duration: 5000,
+				duration: 10000,
 				duplicated:true
            }); 
 		   
-		   $('img').click(function(){
-				console.log('clicked');
-				
-				$('#slider').marquee('toggle');
-				/*
-				if(!paused){
-					$('#slider').marquee('pause');
-					paused = true;
-				}else{
-					$('#slider').marquee('resume');
-					paused = false;
-				}
-				*/
+		   $('img').click(function(){			
+				$('#slider').marquee('toggle');		
 			});
 		   
         });
