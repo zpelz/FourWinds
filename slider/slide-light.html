@@ -32,11 +32,35 @@
 
 	<script>
         
+		var paused;
+		
         $(window).load(function(){
+			paused = false;
+			console.log(paused);
+		
             $('#slider').marquee({
-               duplicated:true
+				duration: 5000,
+				duplicated:true
            }); 
+		   
+		   $('img').click(function(){
+				console.log('clicked');
+				
+				$('#slider').marquee('toggle');
+				/*
+				if(!paused){
+					$('#slider').marquee('pause');
+					paused = true;
+				}else{
+					$('#slider').marquee('resume');
+					paused = false;
+				}
+				*/
+			});
+		   
         });
+		
+		
 
 	
 		
