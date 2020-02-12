@@ -92,14 +92,15 @@ $(document).ready(function(){
     }, 1000);
     
     $('#up').click(function(e){
-        
-        if(page*7 > headers.length-1){
+        var temp = ((1+page)*7);
+	
+        if(temp > headers.length-1){		
             assign(page);   
         }else{
             page++;
             assign(page);
         }
-        console.log("page " + page + " header lenght " + headers.length);
+  
     });
     
     $('#down').click(function(e){
@@ -175,7 +176,7 @@ function assign(val){
     //console.log('h ' + h + ' desc ' + desc + ' date ' + date + ' imgVal ' + imgVal);
     $('.eventTitle').each(function(){
         if(h > headers.length){
-            console.log("should hide the header");
+            
             $(this).text('');
         }else{
            $(this).text(headers[h]); 
@@ -197,7 +198,7 @@ function assign(val){
     
     
     $('.location').each(function(){
-        console.log('locVal ' + locVal);
+        
         if(locVal < locs.length){
             $(this).text(locs[locVal]);
         }else{
@@ -215,31 +216,15 @@ function assign(val){
         timeVal++;
     })
     
-    $('.date').each(function(){
-        
-    
+    $('.date').each(function(){       
         if(date > dates.length){
-            console.log('end');
+			$(this).text('');
         }else{
             $(this).text(monthTranslator(date) + ' | ');
            // $('.time').text(starts[date] + '-' + ends[date]);
            // $('.location').text(locs[date]);
         }
         date++;
-        /*
-        if(date < dates.length){
-            $(this).text(monthTranslator(date) + ' | ');
-            $('.time').text(starts[date] + '-' + ends[date]);
-            let tempDate = locs[date];
-            console.log(locs[date]);
-            $('.location').text(tempDate);        
-        }else{
-            $(this).text('');
-            $('.time').text('');
-            $('.location').text('');
-        }
-        date++; 
-        */
     })
     
 
