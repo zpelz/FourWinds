@@ -40,11 +40,14 @@ function strip_html(str){
     str = str.replace(/(&nbsp;)*/g,'');
     str = str.replace(/(&amp;)*/g,'');
     str = str.replace(/<[^>]*>/g, '');
-    return limitText(str);
+    return limitText(str, 122);
 }
 
 $(document).ready(function(){
-   
+
+
+	$('.item').children('p.description').addClass("normal");
+
     var feed = "https://american.campuslabs.com/engage/events.rss"
     page = 0;
     $.ajax(feed,{
@@ -72,14 +75,19 @@ $(document).ready(function(){
                 var tempLoc = el.find('location').text();
                 
                 starts.push(timeConverter(startTemp));
-                ends.push(timeConverter(endTemp));
-                
-                dates.push(dtStart.substring(0,11));
-                headers.push(el.find('title').text());
+                ends.push(timeConverter(endTemp));     				
+                dates.push(dtStart.substring(0,11)); //just the numbers of the date
+				
+				var head = el.find('title').text();
+                headers.push(limitText(head, 35));
                      
                 imgURLs.push(url);
                 descriptions.push(strip_html(desc).trim());
                
+				if(tempLoc == "It's a surprise!"){ //gets rid of the peppy default Engage location in the even there is no location
+					tempLoc = "TBD";
+				}
+				
                 locs.push(tempLoc);
             });
         }
@@ -89,29 +97,25 @@ $(document).ready(function(){
     
     setTimeout(function(){
         assign(page);
-    }, 1000);
+    }, 2000);
     
     $('#up').click(function(e){
-        var temp = ((1+page)*7);
-	
+        var temp = ((1+page)*7);	
         if(temp > headers.length-1){		
             assign(page);   
         }else{
             page++;
             assign(page);
-        }
-  
+        }  
     });
     
     $('#down').click(function(e){
         if(page > 0){
             page--;
             assign(page);
-        }
-       
+        }       
     });
 });
-
 
 
 
@@ -137,9 +141,10 @@ function timeConverter(val){
     return timeVal;
 }
 
-function limitText(str){ //run in the strip_html function
-    if(str.length > 130){
-        var outText = str.substring(0,127) + "...";
+function limitText(str, len){ //run in the strip_html function
+    if(str.length > len){
+		let elipse = len-3;
+        var outText = str.substring(0,elipse) + "...";
         return outText;				
     }else{
         return str;
@@ -152,8 +157,7 @@ function monthTranslator(val){
     }
     var d = dates[val].substring(8,11);	
     d = months[d] + "/" + dates[val].substring(5,7);
-    d = d.replace(/(0)/gi,'');			
-
+    d = d.replace(/(0)/gi,'');
     return d;
 }
 
@@ -172,33 +176,29 @@ function assign(val){
     var date=val*7;
     var imgVal=val*7;
     var locVal = val*7;
-    var timeVal = val*7;
-    //console.log('h ' + h + ' desc ' + desc + ' date ' + date + ' imgVal ' + imgVal);
+    var timeVal = val*7;	
+	var clearVal = val*7;
+
     $('.eventTitle').each(function(){
-        if(h > headers.length){
-            
+        if(h > headers.length-1){            
             $(this).text('');
         }else{
            $(this).text(headers[h]); 
-        }
-        
+        }        
         h++;
     })
     
-    $('.description').each(function(){
-   
+    $('.description').each(function(){   
         if(desc < descriptions.length-1){
             $(this).text(descriptions[desc]);
-        }else{
-         
+        }else{         
             $(this).text('');
         }
         desc++;
     })
     
     
-    $('.location').each(function(){
-        
+    $('.location').each(function(){        
         if(locVal < locs.length){
             $(this).text(locs[locVal]);
         }else{
@@ -217,12 +217,10 @@ function assign(val){
     })
     
     $('.date').each(function(){       
-        if(date > dates.length){
+        if(date > dates.length-1){
 			$(this).text('');
         }else{
             $(this).text(monthTranslator(date) + ' | ');
-           // $('.time').text(starts[date] + '-' + ends[date]);
-           // $('.location').text(locs[date]);
         }
         date++;
     })
@@ -230,14 +228,22 @@ function assign(val){
 
     
     $('.img').each(function(){
-        if(imgVal > imgURLs.length){
+        if(imgVal > imgURLs.length-1){
             $(this).attr('src', defaultImage);
         }
         $(this).attr('src',imgURLs[imgVal]);
         imgVal++;
     })
     
-    monthTranslator(val);
+	$('.item').each(function(){
+		clearVal++;
+		console.log('clearVal ' + clearVal);
+		if(clearVal > headers.length-1){
+			$(this).hide();
+		}else{
+			$(this).show();
+		}		
+	})
 }
 
 
