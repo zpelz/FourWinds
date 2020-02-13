@@ -32,6 +32,7 @@
 
 	<script>
         
+		var ongoingTouches = [];
 		var paused;
 		var clickedImg;
 		var resumeTimer = setTimeout(function(){
@@ -53,6 +54,14 @@
 				duplicated:true
            }); 
 		   
+		   var touc = document.getElementsByClassName("card");
+		   for(i=0; i<touc.length; i++){
+		   		touc[i].addEventListener("touchstart", handleStart, false);
+				//touc[i].addEventListener("touchend", handleEnd, false);
+		   }
+
+		   
+		   
 		   $('img').click(function(e){			
 				clickedImg = $(this);
 				$('#slider').marquee('toggle');	
@@ -70,7 +79,16 @@
         });
 		
 		
-
+		function handleStart(evt){
+			evt.preventDefault();
+			console.log("touchstart");
+			
+		}
+		
+		function handleEnd(evt){
+			evt.preventDefault();
+			log("touchEnd");
+		}
 	
 		
 	
