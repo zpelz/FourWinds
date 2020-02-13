@@ -86,12 +86,10 @@ $(document).ready(function(){
                
 				if(tempLoc == "It's a surprise!"){ //gets rid of the peppy default Engage location in the even there is no location
 					tempLoc = "TBD";
-				}
-				
+				}				
                 locs.push(tempLoc);
             });
-        }
-       
+        }       
     });
     
     
@@ -99,6 +97,8 @@ $(document).ready(function(){
         assign(page);
     }, 2000);
     
+	
+	//BUTTONS
     $('#up').click(function(e){
         var temp = ((1+page)*7);	
         if(temp > headers.length-1){		
@@ -115,6 +115,23 @@ $(document).ready(function(){
             assign(page);
         }       
     });
+	
+	$('#up').on('tap',function(e){
+        var temp = ((1+page)*7);	
+        if(temp > headers.length-1){		
+            assign(page);   
+        }else{
+            page++;
+            assign(page);
+        }  
+	});
+	
+	$('#down').on('tap', function(e){
+		if(page > 0){
+            page--;
+            assign(page);
+        } 
+	});
 });
 
 
@@ -237,7 +254,7 @@ function assign(val){
     
 	$('.item').each(function(){
 		clearVal++;
-		console.log('clearVal ' + clearVal);
+		
 		if(clearVal > headers.length-1){
 			$(this).hide();
 		}else{

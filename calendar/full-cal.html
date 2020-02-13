@@ -130,10 +130,13 @@
 	function incrementPosition(direction = "forward") {
 		var increment = 1
 		if (direction == "backward") { increment = -1}
+		console.log("position pre " + position);
 		position = (position + increment) % cards.length
+		console.log("position post " + position);
 	}
 
 	function doCycle() {
+		console.log('doCycle');
 		Highlight()
 		incrementPosition()
 	}
@@ -152,11 +155,16 @@
 		desc = document.getElementsByClassName("description");
 		for (var i = 0; i < cards.length; i++) {
 			cards[i].addEventListener("click", Hold);
+			$(cards[i]).data("val", i);
 		}
 	}
 
 	function Hold(x) {
 		clearInterval(rotateTimer);
+		console.log(x);
+		//console.log($(this).data("val"));
+		let testHold = $(this).data("val") % cards.length;
+		console.log("test hold value " + testHold);
 		holdTimer=setInterval(HoldClock, 6000);
 	}
 
