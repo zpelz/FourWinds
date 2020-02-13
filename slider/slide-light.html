@@ -57,12 +57,14 @@
 		   var touc = document.getElementsByClassName("card");
 		   for(i=0; i<touc.length; i++){
 		   		touc[i].addEventListener("touchstart", handleStart, false);
-				//touc[i].addEventListener("touchend", handleEnd, false);
+				touc[i].addEventListener("touchend", handleEnd, false);
 		   }
 
 		   
 		   
-		   $('img').click(function(e){			
+		   $('img').click(function(e){	
+
+				
 				clickedImg = $(this);
 				$('#slider').marquee('toggle');	
 				console.log('clicked img var ' + clickedImg);
@@ -82,7 +84,15 @@
 		function handleStart(evt){
 			evt.preventDefault();
 			console.log("touchstart");
-			
+			$('#slider').marqee('toggle');
+			clickedImg = $(this);
+			if($(this).height() < 650){
+				$(this).height(650);
+				startTimer();
+			}else{
+				$(this).height(500);
+				clearTimeout(resumeTimer);
+			}
 		}
 		
 		function handleEnd(evt){

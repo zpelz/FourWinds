@@ -116,25 +116,23 @@ $(document).ready(function(){
         }       
     });
 	
-	$('#up').on('tap',function(e){
-        var temp = ((1+page)*7);	
-        if(temp > headers.length-1){		
-            assign(page);   
-        }else{
-            page++;
-            assign(page);
-        }  
-	});
+	var upButt = getElementById('up');
+	var downButt = getElementById('down');
+	upButt.addEventListener("touchUp", touchUp, false);
 	
-	$('#down').on('tap', function(e){
-		if(page > 0){
-            page--;
-            assign(page);
-        } 
-	});
 });
 
-
+function touchUp(evt){
+	evt.preventDefault();
+	console.log("touchstart");
+	var temp = ((1+page)*7);	
+	if(temp > headers.length-1){		
+		assign(page);   
+	}else{
+		page++;
+		assign(page);
+	}
+}
 
 function timeConverter(val){
     var dTemp = val;	
