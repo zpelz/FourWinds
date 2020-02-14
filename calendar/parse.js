@@ -99,28 +99,38 @@ $(document).ready(function(){
     
 	
 	//BUTTONS
+	/*
     $('#up').click(function(e){
-        var temp = ((1+page)*7);	
-        if(temp > headers.length-1){		
-            assign(page);   
-        }else{
-            page++;
-            assign(page);
-        }  
+		pageUp();
     });
     
     $('#down').click(function(e){
-        if(page > 0){
-            page--;
-            assign(page);
-        }       
+		pageDown();
     });
 	
-	var upButt = getElementById('up');
-	var downButt = getElementById('down');
+	var upButt = document.getElementById('up');
+	var downButt = document.getElementById('down');
 	upButt.addEventListener("touchUp", touchUp, false);
-	
+	*/
 });
+
+
+function pageUp(){
+	var temp = ((1+page)*7);	
+	if(temp > headers.length-1){		
+		assign(page);   
+	}else{
+		page++;
+		assign(page);
+	}  
+}
+
+function pageDown(){
+	if(page > 0){
+		page--;
+		assign(page);
+	} 
+}
 
 function touchUp(evt){
 	evt.preventDefault();
@@ -132,6 +142,10 @@ function touchUp(evt){
 		page++;
 		assign(page);
 	}
+}
+
+function testPass(){
+	console.log("file passed");
 }
 
 function timeConverter(val){

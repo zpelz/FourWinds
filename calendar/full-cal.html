@@ -99,8 +99,8 @@
 		</div>
 
 		<div class="buttons">
-			<button><img class="arrow" id="down" src="img/down.png" alt="down arrow"></button>
-			<button><img class="arrow" id="up" src="img/up.png" alt="up arrow"></button>
+			<button onclick="pageDown()"><img class="arrow" id="down" src="img/down.png" alt="down arrow"></button>
+			<button onclick="pageUp()"><img class="arrow" id="up" src="img/up.png" alt="up arrow"></button>
 		</div>
 
 	</div>
@@ -114,6 +114,8 @@
 	var places;
 	var image;
 	var desc;
+	
+	var looped; //have you gone back around? used to manage automatic paging
 
 	function Highlight() {
 		for (var i = 0; i < cards.length; i++) {
@@ -130,13 +132,17 @@
 	function incrementPosition(direction = "forward") {
 		var increment = 1
 		if (direction == "backward") { increment = -1}
-		console.log("position pre " + position);
+	
 		position = (position + increment) % cards.length
-		console.log("position post " + position);
+		if(!looped && position == 1){
+			looped = true;
+		}else if (looped && position == 1){
+			
+		}
 	}
 
 	function doCycle() {
-		console.log('doCycle');
+		
 		Highlight()
 		incrementPosition()
 	}
@@ -148,6 +154,8 @@
 
 
 	function Setup() {
+		looped = false;
+		testPass();
 		position=0;
 		cards = document.getElementsByClassName("card");
 		places = document.getElementsByClassName("place");
@@ -161,10 +169,10 @@
 
 	function Hold(x) {
 		clearInterval(rotateTimer);
-		console.log(x);
+	
 		//console.log($(this).data("val"));
 		let testHold = $(this).data("val") % cards.length;
-		console.log("test hold value " + testHold);
+		
 		holdTimer=setInterval(HoldClock, 6000);
 	}
 
