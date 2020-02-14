@@ -60,11 +60,12 @@
 				//touc[i].addEventListener("touchstart", handleStart, false);
 				//touc[i].addEventListener("touchend", handleEnd, false);
 		   }
-
-		   
+		
+			$('img').on("tap", function(){
+				$(this.hide());
+			});
 		   
 		   $('img').click(function(e){	
-
 				
 				clickedImg = $(this);
 				$('#slider').marquee('toggle');	
@@ -78,10 +79,7 @@
 				}
 				
 			});
-			
-			$('img').on("tap", function(){
-				$(this.hide());
-			});
+	
 		   
         });
 		/*

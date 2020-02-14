@@ -14,7 +14,7 @@
     <!--
     <script src="https://code.jquery.com/jquery-git.js"></script>	
     -->
-    <script src="parse.js"></script>
+
 </head>
 
 <body>
@@ -117,6 +117,8 @@
 	
 	var looped; //have you gone back around? used to manage automatic paging
 
+	var dumbTest = "hur durr";
+	
 	function Highlight() {
 		for (var i = 0; i < cards.length; i++) {
 			if (i == position) {
@@ -129,20 +131,22 @@
 		}
 	}
 
-	function incrementPosition(direction = "forward") {
+	function incrementPosition() {
+		direction = "forward"
 		var increment = 1
 		if (direction == "backward") { increment = -1}
 	
 		position = (position + increment) % cards.length
+		//if you reach the end of the list of items then page forward
 		if(!looped && position == 1){
 			looped = true;
 		}else if (looped && position == 1){
-			
+			looped = false;
+			pageUp();
 		}
 	}
 
-	function doCycle() {
-		
+	function doCycle() {		
 		Highlight()
 		incrementPosition()
 	}
@@ -155,7 +159,7 @@
 
 	function Setup() {
 		looped = false;
-		testPass();
+
 		position=0;
 		cards = document.getElementsByClassName("card");
 		places = document.getElementsByClassName("place");
@@ -187,7 +191,7 @@
 	}
 
 </script>	
-
+    <script src="parse.js"></script>
 </body>
 
 </html>

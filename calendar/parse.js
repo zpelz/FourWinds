@@ -7,7 +7,7 @@ var times = new Array();
 var starts = new Array();
 var ends = new Array();
 var locs = new Array();
-
+var max; //have you seen the maximum number of events? 
 
 var defaultImage = 'https://static.campuslabsengage.com/discovery/images/events/groupbusiness.jpg';
 var page;
@@ -45,8 +45,10 @@ function strip_html(str){
 
 $(document).ready(function(){
 
-
+	max = false;// for when you reach the maximum number of items
 	$('.item').children('p.description').addClass("normal");
+
+
 
     var feed = "https://american.campuslabs.com/engage/events.rss"
     page = 0;
@@ -108,18 +110,24 @@ $(document).ready(function(){
 		pageDown();
     });
 	
-	var upButt = document.getElementById('up');
-	var downButt = document.getElementById('down');
-	upButt.addEventListener("touchUp", touchUp, false);
 	*/
 });
 
 
 function pageUp(){
 	var temp = ((1+page)*7);	
+	
+	if(max){
+		page = 0;
+		assign(page);	
+	}
+	
 	if(temp > headers.length-1){		
 		assign(page);   
+		max = true;		
 	}else{
+		position = 0;
+		looped = false;
 		page++;
 		assign(page);
 	}  
@@ -132,21 +140,6 @@ function pageDown(){
 	} 
 }
 
-function touchUp(evt){
-	evt.preventDefault();
-	console.log("touchstart");
-	var temp = ((1+page)*7);	
-	if(temp > headers.length-1){		
-		assign(page);   
-	}else{
-		page++;
-		assign(page);
-	}
-}
-
-function testPass(){
-	console.log("file passed");
-}
 
 function timeConverter(val){
     var dTemp = val;	
@@ -191,14 +184,6 @@ function monthTranslator(val){
 }
 
 
-$(document).keydown(function(e){
-    if(e.keyCode == 32){
-        console.log(locs);
-    }
-})
-
-
-
 function assign(val){
     var h=val*7;
     var desc=val*7;
@@ -207,7 +192,9 @@ function assign(val){
     var locVal = val*7;
     var timeVal = val*7;	
 	var clearVal = val*7;
-
+	
+	max = false; 
+	
     $('.eventTitle').each(function(){
         if(h > headers.length-1){            
             $(this).text('');
