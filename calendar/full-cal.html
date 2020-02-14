@@ -173,11 +173,10 @@
 
 	function Hold(x) {
 		clearInterval(rotateTimer);
-	
-		//console.log($(this).data("val"));
 		let testHold = $(this).data("val") % cards.length;
-		
-		holdTimer=setInterval(HoldClock, 6000);
+		position = testHold;
+		Highlight();	
+		holdTimer = setInterval(HoldClock, 6000);
 	}
 
 	function HoldClock() {
