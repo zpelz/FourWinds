@@ -56,8 +56,9 @@
 		   
 		   var touc = document.getElementsByClassName("card");
 		   for(i=0; i<touc.length; i++){
-		   		touc[i].addEventListener("touchstart", handleStart, false);
-				touc[i].addEventListener("touchend", handleEnd, false);
+		   		console.log('touch ' + touc);
+				//touc[i].addEventListener("touchstart", handleStart, false);
+				//touc[i].addEventListener("touchend", handleEnd, false);
 		   }
 
 		   
@@ -83,7 +84,7 @@
 			});
 		   
         });
-		
+		/*
 		
 		function handleStart(evt){
 			evt.preventDefault();
@@ -100,11 +101,10 @@
 		}
 		
 		function handleEnd(evt){
-			evt.preventDefault();
-			log("touchEnd");
+			evt.preventDefault();		
 		}
 	
-		
+		*/
 	
 	</script>
 
