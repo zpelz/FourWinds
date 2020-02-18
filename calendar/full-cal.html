@@ -20,7 +20,19 @@
 <body>
 
 	<div class="container">
-
+		<!--1-->
+		<div class="item place card">
+			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
+			<p>
+				<b class="eventTitle"></b>
+				<em class="date"></em> 
+				<em class="time"></em> 
+				<b class="location"></b>
+			</p>
+			<p class="description"></p>	
+		</div>
+		
+		<!--2-->
 		<div class="item place card">
 			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
 			<p>
@@ -31,7 +43,8 @@
 			</p>
 			<p class="description"></p>
 		</div>
-
+		
+		<!--3-->
 		<div class="item place card">
 			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
 			<p>
@@ -41,19 +54,9 @@
 				<b class="location"></b>
 			</p>
 			<p class="description"></p>
-		</div>
-
-		<div class="item place card">
-			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
-			<p>
-				<b class="eventTitle"></b>
-				<em class="date"></em> 
-				<em class="time"></em> 
-				<b class="location"></b>
-			</p>
-			<p class="description"> </p>
 		</div>
  
+		<!--4-->
 		<div class="item place card">
 			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
 			<p>
@@ -62,40 +65,43 @@
 				<em class="time"></em> 
 				<b class="location"></b>
 			</p>
-			<p class="description"> </p>
+			<p class="description"> </p>	
 		</div>
 
+		<!--5-->
 		<div class="item place card">
 			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
 			<p>
 				<b class="eventTitle"></b>
 				<em class="date"></em> 
 				<em class="time"></em> 
-				<b class="location"></b>
+				<span><b class="location"></b><span>
 			</p>
-			<p class="description"> </p>
+			<p class="description"> </p>	
 		</div>
 
+		<!--6-->
 		<div class="item place card">
-			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
+			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 		
 			<p>
 				<b class="eventTitle"></b>
 				<em class="date"></em> 
 				<em class="time"></em> 
-				<b class="location"></b>
-			</p>
+				<span><b class="location"></b></span>
+			</p>			
 			<p class="description"> </p>
 		</div>
-
+		
+		<!--7-->
 		<div class="item place card">
-			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 
+			<img src="https://www.american.edu/images/csthumbnail_large/McKinley-Building2.png" alt="Sample image" class="img"> 		
 			<p>
 				<b class="eventTitle"></b>
 				<em class="date"></em> 
 				<em class="time"></em> 
 				<b class="location"></b>
 			</p>
-			<p class="description"></p>
+			<p class="description"></p>		
 		</div>
 
 		<div class="buttons">
@@ -115,6 +121,7 @@
 	var image;
 	var desc;
 	
+	
 	var looped; //have you gone back around? used to manage automatic paging
 
 	var dumbTest = "hur durr";
@@ -122,7 +129,7 @@
 	function Highlight() {
 		for (var i = 0; i < cards.length; i++) {
 			if (i == position) {
-                console.log("Highlighted " + i);
+           //     console.log("Highlighted " + i); //// function alert
 				$(cards[i]).addClass("highlighted");
 				$(cards[i]).removeClass("normal");
 			} else {
@@ -148,13 +155,13 @@
 	}
 
 	function doCycle() {	
-        console.log("doCycle started");
+       // console.log("doCycle started");  //// function alert
 		Highlight()
 		incrementPosition()
 	}
 
 	function Cycle() {
-        console.log("started cycle");
+       // console.log("started cycle"); //// function alert
 		rotateTimer=setInterval(doCycle, 2000);
 	}
     
@@ -176,7 +183,7 @@
 	}
 
 	function Hold(x) {
-        console.log("Hold start clicked " + x);
+        //console.log("Hold start clicked " + x); //// function alert
 		clearInterval(rotateTimer);
         clearInterval(holdTimer);
 		let testHold = $(this).data("val") % cards.length;
@@ -184,9 +191,19 @@
 		Highlight();	
 		holdTimer = setInterval(HoldClock, 6000);
 	}
+	
+	function pauseCycle(){
+		console.log('please clap');
+		clearInterval(rotateTimer);
+		clearInterval(holdTimer);
+	}
+	
+	function playCycle(){
+		Cycle();
+	}
 
 	function HoldClock() {
-        console.log("holdclock started");
+        //console.log("holdclock started"); //// function alert
 		Cycle();
 		clearInterval(holdTimer);
 	}

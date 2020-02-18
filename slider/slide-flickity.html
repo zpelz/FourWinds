@@ -74,31 +74,31 @@
 		});
 		
 		$('.main-carousel').click(function(){		
-			console.log("mouse up on carousel");
+			
 			//$(this).flickity('playPlayer');
 		});		
 		
 		$('img').click(function(e){
 			console.log('clicked card');
+			
 			if(!paused){
 				$('.main-carousel').flickity('pausePlayer');
 				paused = true;
+				$(this).height(650);
 				resumeTimer = setTimeout(function(){
+					console.log("should resume");
 					$('.main-carousel').flickity('playPlayer');
 					$('img').each(function(){
 						$(this).height(500);
 					});
-				}, 3000);
+				}, 5000);
 				
 			}else{
 				$('.main-carousel').flickity('playPlayer');
 				paused = false;
-			}		
-			if($(this).height() < 650){
-				$(this).height(650);
-			}else{
 				$(this).height(500);
-			}			
+			}		
+			
 		});
 		
 		$('img').mouseup(function(){

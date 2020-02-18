@@ -40,7 +40,8 @@ function strip_html(str){
     str = str.replace(/(&nbsp;)*/g,'');
     str = str.replace(/(&amp;)*/g,'');
     str = str.replace(/<[^>]*>/g, '');
-    return limitText(str, 122);
+	str = str.replace(/(&rsquo;)*/g,'');
+    return limitText(str, 157);
 }
 
 $(document).ready(function(){
@@ -81,12 +82,12 @@ $(document).ready(function(){
                 dates.push(dtStart.substring(0,11)); //just the numbers of the date
 				
 				var head = el.find('title').text();
-                headers.push(limitText(head, 35));
+                headers.push(limitText(head, 27));
                      
                 imgURLs.push(url);
                 descriptions.push(strip_html(desc).trim());
                
-				if(tempLoc == "It's a surprise!"){ //gets rid of the peppy default Engage location in the even there is no location
+				if(tempLoc == "It's a surprise!" || tempLoc == "It's a Surprise!"){ //gets rid of the peppy default Engage location in the even there is no location			
 					tempLoc = "TBD";
 				}				
                 locs.push(tempLoc);
@@ -251,7 +252,8 @@ function assign(val){
         imgVal++;
     })
     
-	$('.item').each(function(){
+	$('.item').each(function(){ 
+		//hide the 'item' that holds all the info if there isn't enough content for all
 		clearVal++;
 		
 		if(clearVal > headers.length-1){

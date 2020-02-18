@@ -35,6 +35,7 @@ em {
 
 .eventTitle {
 	font-size: 38px;
+	
 }
 
 .date {
@@ -48,6 +49,7 @@ em {
 
 .location {
 	font-size: 32px;
+
 }
 
 .description {
@@ -73,6 +75,10 @@ button {
 }
 
 
+.basics{
+	margin: 5px;
+}
+
 .highlighted {
 	background-color: #ffffff;
 	height: 150px;
@@ -87,10 +93,16 @@ button {
 
 .highlighted .description {
 	display: block;
+	max-width: 650px;
 }
 
 .highlighted .eventTitle {
 	font-size: 42px;
+}
+
+.highlighted .date::before{
+	content: "\A";
+	white-space: pre;
 }
 
 
