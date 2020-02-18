@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>OCL Graphics</title>
+	<link rel="stylesheet" type="text/css" href="flickity-style.css">
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+</head>
+
+<body>
+
+	<div class="main-carousel">
+		
+		<div class="carousel-cell card">
+			<img src="https://www.american.edu/ocl/images/market-graphic.jpg" alt="The Market infographic"> 
+		</div>
+	
+		<div class="carousel-cell card">
+            <img src="https://www.american.edu/ocl/images/titleix-graphic.jpg" alt="Title IX infographic">  
+		</div>
+
+		<div class="carousel-cell card">
+			<img src="https://www.american.edu/ocl/images/health-center-text-2.png" alt="Health Center text conversation">
+		</div>		
+		
+		<div class="carousel-cell card">
+			<img src="https://www.american.edu/ocl/images/DOS-graphic.jpg" alt="Dean of Students Office infographic">
+		</div>
+		
+		<div class="carousel-cell card">
+			<img src="https://www.american.edu/ocl/images/health-center-text-1.png" alt="Health Center text conversation">
+		</div>
+	</div>
+	<!--
+	<div id="slider">
+      
+
+       
+			
+
+
+	</div>	
+	-->
+	
+	<script>
+	
+		var paused;
+        
+		$(document).mouseup(function(){
+			//in case we need a universal mouseup
+		});
+			
+		$(document).ready(function(){
+			paused = false;
+			$('img').each(function(){
+				$(this).height(500);
+			});
+		});
+		
+		$('.main-carousel').flickity({
+			cellAlign: 'center', 
+			contain: true, 
+			autoPlay: 1500, 
+			wrapAround: true,
+			prevNextButtons: false, 
+			pauseAutoPlayOnHover: false,
+			pageDots: false,		
+			adaptiveHeight: true //maybe needed for when images resize
+		
+		});
+		
+		$('.main-carousel').click(function(){		
+			console.log("mouse up on carousel");
+			//$(this).flickity('playPlayer');
+		});		
+		
+		$('img').click(function(e){
+			console.log('clicked card');
+			if(!paused){
+				$('.main-carousel').flickity('pausePlayer');
+				paused = true;
+				resumeTimer = setTimeout(function(){
+					$('.main-carousel').flickity('playPlayer');
+					$('img').each(function(){
+						$(this).height(500);
+					});
+				}, 3000);
+				
+			}else{
+				$('.main-carousel').flickity('playPlayer');
+				paused = false;
+			}		
+			if($(this).height() < 650){
+				$(this).height(650);
+			}else{
+				$(this).height(500);
+			}			
+		});
+		
+		$('img').mouseup(function(){
+			console.log("restart timer");
+			
+		});
+		
+		
+
+		
+		
+	</script>
+
+</body>
+
+</html>
+
+

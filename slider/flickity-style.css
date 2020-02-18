@@ -1,0 +1,23 @@
+body {
+	background-color: #00616C;
+}
+
+.card{
+	height: 650px;		
+}
+
+.card img{
+	height: 650px;
+	transition: all .5s linear;
+	
+}
+
+
+.main-carousel{
+	height: 650px;
+}
+
+
+
+
+
