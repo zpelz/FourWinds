@@ -74,7 +74,13 @@
 		});
 		
 		$('.main-carousel').click(function(){		
-			
+			resumeTimer = setTimeout(function(){
+				console.log("should resume");
+				$('.main-carousel').flickity('playPlayer');
+				$('img').each(function(){
+					$(this).height(500);
+				});
+			}, 5000);
 			//$(this).flickity('playPlayer');
 		});		
 		
