@@ -61,14 +61,15 @@
 				//touc[i].addEventListener("touchend", handleEnd, false);
 		   }
 		
-			$('img').on("tap", function(){
-				$(this.hide());
-			});
-		   
+            $('#slider').click(function(){
+                
+                $('#slider').marquee('toggle');	
+            });
+            
 		   $('img').click(function(e){	
 				
 				clickedImg = $(this);
-				$('#slider').marquee('toggle');	
+			
 				console.log('clicked img var ' + clickedImg);
 				if($(this).height() < 650){
 					$(this).height(650);

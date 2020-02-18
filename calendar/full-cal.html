@@ -122,6 +122,7 @@
 	function Highlight() {
 		for (var i = 0; i < cards.length; i++) {
 			if (i == position) {
+                console.log("Highlighted " + i);
 				$(cards[i]).addClass("highlighted");
 				$(cards[i]).removeClass("normal");
 			} else {
@@ -146,33 +147,38 @@
 		}
 	}
 
-	function doCycle() {		
+	function doCycle() {	
+        console.log("doCycle started");
 		Highlight()
 		incrementPosition()
 	}
 
 	function Cycle() {
+        console.log("started cycle");
 		rotateTimer=setInterval(doCycle, 2000);
 	}
     
 
 
 	function Setup() {
-		looped = false;
+		looped = false; //we haven't gone through all the cards displayed
 
 		position=0;
 		cards = document.getElementsByClassName("card");
 		places = document.getElementsByClassName("place");
 		image = document.getElementsByClassName("img");
 		desc = document.getElementsByClassName("description");
+        
 		for (var i = 0; i < cards.length; i++) {
 			cards[i].addEventListener("click", Hold);
-			$(cards[i]).data("val", i);
+			$(cards[i]).data("val", i); //each card gets a value so we can reset the highlight
 		}
 	}
 
 	function Hold(x) {
+        console.log("Hold start clicked " + x);
 		clearInterval(rotateTimer);
+        clearInterval(holdTimer);
 		let testHold = $(this).data("val") % cards.length;
 		position = testHold;
 		Highlight();	
@@ -180,6 +186,7 @@
 	}
 
 	function HoldClock() {
+        console.log("holdclock started");
 		Cycle();
 		clearInterval(holdTimer);
 	}
