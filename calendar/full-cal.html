@@ -29,7 +29,9 @@
 				<em class="time"></em> 
 				<b class="location"></b>
 			</p>
-			<p class="description"></p>	
+			<div id="describe">
+				<p class="description"></p>	
+			</div>
 		</div>
 		
 		<!--2-->
@@ -41,7 +43,9 @@
 				<em class="time"></em> 
 				<b class="location"></b>
 			</p>
-			<p class="description"></p>
+			<div id="describe">
+				<p class="description"></p>
+			</div>
 		</div>
 		
 		<!--3-->
@@ -53,7 +57,9 @@
 				<em class="time"></em> 
 				<b class="location"></b>
 			</p>
-			<p class="description"></p>
+			<div id="describe">
+				<p class="description"></p>
+			</div>
 		</div>
  
 		<!--4-->
@@ -65,7 +71,9 @@
 				<em class="time"></em> 
 				<b class="location"></b>
 			</p>
-			<p class="description"> </p>	
+			<div id="describe">
+				<p class="description"> </p>	
+			</div>
 		</div>
 
 		<!--5-->
@@ -77,7 +85,9 @@
 				<em class="time"></em> 
 				<span><b class="location"></b><span>
 			</p>
-			<p class="description"> </p>	
+			<div id="describe">
+				<p class="description"> </p>	
+			</div>
 		</div>
 
 		<!--6-->
@@ -88,8 +98,11 @@
 				<em class="date"></em> 
 				<em class="time"></em> 
 				<span><b class="location"></b></span>
-			</p>			
-			<p class="description"> </p>
+			</p>
+			<div id="describe">
+				<p class="description"> </p>
+			</div>
+		
 		</div>
 		
 		<!--7-->
@@ -101,7 +114,9 @@
 				<em class="time"></em> 
 				<b class="location"></b>
 			</p>
-			<p class="description"></p>		
+			<div id="describe">
+				<p class="description"></p>		
+			</div>
 		</div>
 
 		<div class="buttons">
@@ -131,10 +146,12 @@
 			if (i == position) {
            //     console.log("Highlighted " + i); //// function alert
 				$(cards[i]).addClass("highlighted");
+		
 				$(cards[i]).removeClass("normal");
 			} else {
 				$(cards[i]).addClass("normal");
 				$(cards[i]).removeClass("highlighted");
+			
 			}	
 		}
 	}

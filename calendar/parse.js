@@ -41,7 +41,7 @@ function strip_html(str){
     str = str.replace(/(&amp;)*/g,'');
     str = str.replace(/<[^>]*>/g, '');
 	str = str.replace(/(&rsquo;)*/g,'');
-    return limitText(str, 157);
+    return limitText(str, 250);
 }
 
 $(document).ready(function(){
@@ -82,7 +82,7 @@ $(document).ready(function(){
                 dates.push(dtStart.substring(0,11)); //just the numbers of the date
 				
 				var head = el.find('title').text();
-                headers.push(limitText(head, 27));
+                headers.push(limitText(head, 40));
                      
                 imgURLs.push(url);
                 descriptions.push(strip_html(desc).trim());

@@ -8,13 +8,15 @@ img {
 }
 
 p {
-	margin: 25px 10px 0px 0px;
-	padding-left: 20px;
+	margin: 5px 1px 0px 0px;
+	padding-left: 7px;
 }
 
+/*
 b {
 	padding-left: 10px;
 }
+*/
 
 em {
 	padding-left: 10px;
@@ -31,11 +33,12 @@ em {
 	height: 100px;
 	width: 1400px;
 	margin: 10px 200px;
+	overflow: hidden;
+	position: relative;
 }
 
 .eventTitle {
-	font-size: 38px;
-	
+	font-size: 30px;	
 }
 
 .date {
@@ -53,9 +56,10 @@ em {
 }
 
 .description {
-	font-size: 28px;
-	width: 950px;
-	padding-right: 20px;
+	font-size: x-large;
+	width: 550px;
+	
+	right:0;
 }
 
 .buttons {
@@ -94,10 +98,18 @@ button {
 .highlighted .description {
 	display: block;
 	max-width: 650px;
+	
 }
 
 .highlighted .eventTitle {
-	font-size: 42px;
+	font-size: 245%;
+	
+}
+
+#describe{
+	position: absolute;
+	right:0;
+	
 }
 
 .highlighted .date::before{
@@ -105,6 +117,10 @@ button {
 	white-space: pre;
 }
 
+.highlighted .location::before{
+	content: "\A";
+	white-space:pre;
+}
 
 .normal .card {
 	background-color: #DCDDDE;
