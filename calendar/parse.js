@@ -41,7 +41,7 @@ function strip_html(str){
     str = str.replace(/(&amp;)*/g,'');
     str = str.replace(/<[^>]*>/g, '');
 	str = str.replace(/(&rsquo;)*/g,'');
-    return limitText(str, 250);
+    return limitText(str, 225);
 }
 
 $(document).ready(function(){
@@ -98,32 +98,22 @@ $(document).ready(function(){
     
     setTimeout(function(){
         assign(page);
-    }, 2000);
-    
+    }, 2000);    
 	
-	//BUTTONS
-	/*
-    $('#up').click(function(e){
-		pageUp();
-    });
-    
-    $('#down').click(function(e){
-		pageDown();
-    });
-	
-	*/
+
 });
 
 
 function pageUp(){
 	var temp = ((1+page)*7);	
-	
+
 	if(max){
 		page = 0;
 		assign(page);	
 	}
 	
-	if(temp > headers.length-1){		
+
+	if(temp >= headers.length-1){		
 		assign(page);   
 		max = true;		
 	}else{

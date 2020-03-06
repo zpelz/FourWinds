@@ -18,6 +18,11 @@ b {
 }
 */
 
+::selection{
+	background-color: transparent;
+	color:#000;
+}
+
 em {
 	padding-left: 10px;
 }
@@ -42,7 +47,7 @@ em {
 }
 
 .date {
-	font-size: 32px;
+	font-size: 24px;
 	font-style: normal;
 }
 
@@ -57,9 +62,8 @@ em {
 
 .description {
 	font-size: x-large;
-	width: 550px;
-	
-	right:0;
+	width: 550px;	
+	padding-right:20px;
 }
 
 .buttons {
@@ -102,7 +106,7 @@ button {
 }
 
 .highlighted .eventTitle {
-	font-size: 245%;
+	font-size: 215%;
 	
 }
 

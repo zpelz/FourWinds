@@ -18,5 +18,7 @@ body {
 }
 
 
-
-americanuniversitycampuslife@gmail.com
+::selection{
+	background-color: transparent;
+	color:#000;
+}
